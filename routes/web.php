@@ -1,9 +1,15 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\KelolaKuotaController;
+use App\Http\Controllers\Admin\PesertaMagangController;
+use App\Http\Controllers\Admin\UploadTwibbonController;
+use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Guest\KuotaMagangController;
 use App\Http\Controllers\Guest\PusatInformasiController;
 use App\Http\Controllers\Guest\TentangSIGController;
+use App\Http\Controllers\Mahasiswa\PengajuanMagangController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,15 +30,29 @@ Route::get('/tentang-sig', [TentangSIGController::class, 'index'])->name('tentan
 Route::get('/kuota-magang', [KuotaMagangController::class, 'index'])->name('kuota-magang.index');
 Route::get('/pusat-informasi', [PusatInformasiController::class, 'index'])->name('pusat-informasi.index');
 
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('/', function() {
-        dd('Ini adalah admin', Auth::user());
-    });
+// User Mahasiswa Login
+Route::group([
+    'prefix'     => 'mahasiswa',
+    'middleware' => 'auth',
+    'as'         => 'mahasiswa.'], function() {
+
+    Route::resource('pengajuan-magang', PengajuanMagangController::class);
 });
 
-Route::group(['prefix' => 'user'], function() {
-    Route::get('/', function() {
-        dd('Ini adalah user yang register', Auth::user(), Auth::user()->role);
-    });
+// Admin Login
+Route::group([
+    'prefix'     => 'admin',
+    'middleware' => 'auth',
+    'as'         => 'admin.'], function() {
+    
+        // Dashboard
+        Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard.index');
+
+        Route::resource('kelola-kuota', KelolaKuotaController::class);
+        Route::resource('peserta-magang', PesertaMagangController::class);
+        Route::resource('upload-twibbon', UploadTwibbonController::class);
+        Route::resource('user-management', UserManagementController::class);
 });
+
+
 

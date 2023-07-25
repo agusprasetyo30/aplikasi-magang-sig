@@ -9,7 +9,7 @@ class LoginResponse implements ContractsLoginResponse
 	// Digunakan untuk mengatur redirect setelah registrasi
 	
 	public function toResponse($request) {
-		$home = '/user';
+		$home = '/';
 
 		if (Auth::user()->role == 'admin') {
 			$home = '/admin';

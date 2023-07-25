@@ -21,6 +21,13 @@
 		<link href="{{ asset('vendor/css/style.css') }}" rel="stylesheet" />
 		<!-- responsive style -->
 		<link href="{{ asset('vendor/css/responsive.css') }}" rel="stylesheet" />
+
+		<style>
+			a.nav-link{
+				font-size: 12px;
+			}
+		</style>
+
 		@stack('css')
 	</head>
 	<body>
