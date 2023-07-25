@@ -13,14 +13,14 @@
 		<link rel="shortcut icon" href="{{ asset('vendor/images/favicon.png') }}" type="">
 		<title>@yield('title')</title>
 		<!-- bootstrap core css -->
-		<link rel="stylesheet" type="text/css" href="{{ asset('vendor/css/bootstrap.css') }}" />
+		{{-- <link rel="stylesheet" type="text/css" href="{{ asset('vendor/css/bootstrap.css') }}" /> --}}
+		<link rel="stylesheet" type="text/css" href="{{ asset('vendor/css/adminlte.min.css') }}" />
 		<!-- font awesome style -->
 		<link href="{{ asset('vendor/css/font-awesome.min.css') }}" rel="stylesheet" />
 		<!-- Custom styles for this template -->
 		<link href="{{ asset('vendor/css/style.css') }}" rel="stylesheet" />
 		<!-- responsive style -->
 		<link href="{{ asset('vendor/css/responsive.css') }}" rel="stylesheet" />
-
 		@stack('css')
 	</head>
 	<body>
@@ -31,21 +31,16 @@
 			</header>
 			<!-- end header section -->
 			<section class="inner_page_head" style="padding-bottom: 0; padding-top: 10px">
-				{{-- <div class="container_fuild">
-				   <div class="row">
 
-				   </div>
-				</div> --}}
-			 </section>
+			</section>
 			<section class="why_section layout_padding">
 				<div class="container">
-					<div class="heading_container heading_center">
+					{{-- <div class="heading_container heading_center">
 						<h2>
 							Why Shop With Us
 						</h2>
-					</div>
-					<div class="row">
-					</div>
+					</div> --}}
+						@yield('content')
 				</div>
 			</section>
 		</div>
@@ -69,6 +64,6 @@
 		<!-- bootstrap js -->
 		<script src="{{ asset('vendor/js/bootstrap.js') }}"></script>
 		<!-- custom js -->
-		<script src="{{ asset('vendor/js/custom.js') }}"></script>
+
 	</body>
 </html>

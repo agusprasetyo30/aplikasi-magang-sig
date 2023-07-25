@@ -6,22 +6,39 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav">
-				<li class="nav-item active">
-				<a class="nav-link" href="#">Beranda <span class="sr-only">(current)</span></a>
+				<li class="nav-item @if (Request::getRequestUri() == '/') active @endif">
+				<a class="nav-link" href="{{ route('dashboard') }}">Beranda <span class="sr-only">(current)</span></a>
 				</li>
-				<li class="nav-item dropdown">
-					<li class="nav-item">
-						<a class="nav-link" href="#">Tentang SIG</a>
+				<li class="nav-item dropdown ">
+					<li class="nav-item @if (Request::getRequestUri() == '/tentang-sig') active @endif">
+						<a class="nav-link" href="{{ route('tentang-sig.index') }}">Tentang SIG</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Kuota Magang</a>
+					<li class="nav-item @if (Request::getRequestUri() == '/kuota-magang') active @endif">
+						<a class="nav-link" href="{{ route('kuota-magang.index') }}">Kuota Magang</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Pusat Informasi</a>
+					<li class="nav-item @if (Request::getRequestUri() == '/pusat-informasi') active @endif">
+						<a class="nav-link" href="{{ route('pusat-informasi.index') }}">Pusat Informasi</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#">Login</a>
-					</li>
+
+					@auth
+						<li class="nav-item">
+							<a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Logout</a>
+						</li>
+
+						<form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none">
+							@csrf
+						</form>
+					{{-- @if (!Auth::check()) --}}
+					@else
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('login') }}">Login</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('register') }}">Register</a>
+						</li>
+					@endauth
+
+					{{-- @endif --}}
 				</li>
 			</ul>
 		</div>
