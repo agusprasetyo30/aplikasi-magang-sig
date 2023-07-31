@@ -162,7 +162,7 @@
 					</div>
 					<hr>
 
-					<a href="#" class="btn btn-sm btn-info"><i class="fa fa-arrow-left mr-2"></i> Kembali</a>
+					<a href="{{ route('admin.peserta-magang.index') }}" class="btn btn-secondary btn-sm"><i class="fa fa-arrow-left mr-1"></i> Kembali</a>
 				</div>
 			</div>
 		</div>

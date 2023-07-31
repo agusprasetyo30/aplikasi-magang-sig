@@ -35,7 +35,7 @@ Route::get('/pusat-informasi', [PusatInformasiController::class, 'index'])->name
 // User Mahasiswa Login
 Route::group([
     'prefix'     => 'mahasiswa',
-    // 'middleware' => 'auth',
+    'middleware' => ['auth', 'can:mahasiswa'],
     'as'         => 'mahasiswa.'], function() {
 
     Route::get('/', [MahasiswaDashboardController::class, 'index'])->name('dashboard.index');
@@ -47,7 +47,7 @@ Route::group([
 // Admin Login
 Route::group([
     'prefix'     => 'admin',
-    // 'middleware' => 'auth',
+    'middleware' => ['auth', 'can:admin'],
     'as'         => 'admin.'], function() {
     
         // Dashboard

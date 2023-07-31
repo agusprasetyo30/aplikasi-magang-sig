@@ -8,7 +8,7 @@
 			<h4>Dashboard</h4>
 		</div>
 		<div class="col-6 text-right">
-			<span class="p-2 bg-primary">Hallo, melkan uhuy</span>
+			<span class="p-2 bg-primary">Hallo, {{ Auth::user()->fullname }}</span>
 		</div>
 	</div>
 

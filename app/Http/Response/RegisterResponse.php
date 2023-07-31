@@ -9,7 +9,7 @@ class RegisterResponse implements ContractsRegisterResponse
 	// Digunakan untuk mengatur redirect setelah registrasi
 
 	public function toResponse($request) {
-		$home = '/';
+		$home = '/mahasiswa';
 
 		if (Auth::user()->role == 'admin') {
 			$home = '/admin';

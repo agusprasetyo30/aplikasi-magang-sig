@@ -58,7 +58,7 @@ class KelolaKuotaController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.kelola-kuota.edit');
     }
 
     /**

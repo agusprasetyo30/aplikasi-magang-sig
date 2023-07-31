@@ -43,7 +43,7 @@
 							</select>
 						</div>
 						<div class="form-group">
-							<a href="{{ Redirect()->back() }}" class="btn btn-info btn-sm"><i class="fa fa-arrow-left mr-2"></i> Kembali</a>
+							<a href="{{ route('admin.kelola-kuota.index') }}" class="btn btn-info btn-sm"><i class="fa fa-arrow-left mr-2"></i> Kembali</a>
 							<button type="submit" class="btn btn-success btn-sm float-right"><i class="fa fa-save mr-2"></i> Simpan</button>
 						</div>
 					</form>
