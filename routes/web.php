@@ -9,6 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Guest\KuotaMagangController;
 use App\Http\Controllers\Guest\PusatInformasiController;
 use App\Http\Controllers\Guest\TentangSIGController;
+use App\Http\Controllers\Mahasiswa\DashboardController as MahasiswaDashboardController;
 use App\Http\Controllers\Mahasiswa\PengajuanMagangController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,20 +34,27 @@ Route::get('/pusat-informasi', [PusatInformasiController::class, 'index'])->name
 // User Mahasiswa Login
 Route::group([
     'prefix'     => 'mahasiswa',
-    'middleware' => 'auth',
+    // 'middleware' => 'auth',
     'as'         => 'mahasiswa.'], function() {
 
+    Route::get('/', [MahasiswaDashboardController::class, 'index'])->name('dashboard.index');
     Route::resource('pengajuan-magang', PengajuanMagangController::class);
 });
 
 // Admin Login
 Route::group([
     'prefix'     => 'admin',
-    'middleware' => 'auth',
+    // 'middleware' => 'auth',
     'as'         => 'admin.'], function() {
     
         // Dashboard
         Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard.index');
+
+        // Peserta Magang
+        Route::prefix('peserta-magang')->as('peserta-magang.')->group(function() {
+            Route::get('/{id}/upload-data', [PesertaMagangController::class, 'uploadDataView'])->name('upload-data-view');
+            Route::put('/{id}/upload-data', [PesertaMagangController::class, 'uploadData'])->name('upload-data');
+        });
 
         Route::resource('kelola-kuota', KelolaKuotaController::class);
         Route::resource('peserta-magang', PesertaMagangController::class);

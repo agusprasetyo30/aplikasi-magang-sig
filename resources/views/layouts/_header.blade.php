@@ -6,9 +6,9 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav">
-				{{-- <li class="nav-item @if (Request::getRequestUri() == '/') active @endif">
+				<li class="nav-item @if (Request::getRequestUri() == '/') active @endif">
 					<a class="nav-link" href="{{ route('dashboard') }}">Beranda <span class="sr-only">(current)</span></a>
-				</li> --}}
+				</li>
 				<li class="nav-item dropdown ">
 					@auth
 						{{-- <li class="nav-item @if (Request::getRequestUri() == '/pengajuan-magang') active @endif">

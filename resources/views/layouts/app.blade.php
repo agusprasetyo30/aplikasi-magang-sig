@@ -21,10 +21,18 @@
 		<link href="{{ asset('vendor/css/style.css') }}" rel="stylesheet" />
 		<!-- responsive style -->
 		<link href="{{ asset('vendor/css/responsive.css') }}" rel="stylesheet" />
-
+		<!-- select2 style -->
+		<link href="{{ asset('vendor/select2/css/select2.min.css') }}" rel="stylesheet" />
+		<link href="{{ asset('vendor/select2/css/select2-bootstrap4.min.css') }}" rel="stylesheet" />
+		<link href="{{ asset('vendor/toastr/toastr.min.css') }}" rel="stylesheet" />
+		
 		<style>
 			a.nav-link{
 				font-size: 12px;
+			}
+
+			label {
+				font-size: 13px;
 			}
 		</style>
 
@@ -70,7 +78,35 @@
 		<script src="{{ asset('vendor/js/popper.min.js') }}"></script>
 		<!-- bootstrap js -->
 		<script src="{{ asset('vendor/js/bootstrap.js') }}"></script>
-		<!-- custom js -->
+		<!-- select2 js -->
+		<script src="{{ asset('vendor/select2/js/select2.min.js') }}"></script>
+		<script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
 
+		<script>
+			// untuk sweetalert
+			// message : untuk pesan toast/alert yang akan ditampilkan
+			// alert_type : untuk type alert yang ditampilkan {info, success, warning, error}, 
+			// dengan defaultnya adalah "success"
+			
+			@if(Session::get('message'))
+				@if (Session::get("alert_type") == 'success')
+					toastr.success('{{ Session::get("message") }}', 'Success')
+				@endif
+				
+				@if (Session::get("alert_type") == 'info')
+					toastr.info('{{ Session::get("message") }}', 'Info')
+				@endif
+
+				@if (Session::get("alert_type") == 'warning')
+					toastr.warning('{{ Session::get("message") }}', 'Warning')
+				@endif
+
+				@if (Session::get("alert_type") == 'error')
+					toastr.error('{{ Session::get("message") }}', 'Error')
+				@endif
+			@endif
+		</script>
+		<!-- custom js -->
+		@stack('js')
 	</body>
 </html>

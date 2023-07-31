@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Mahasiswa;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class PesertaMagangController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class PesertaMagangController extends Controller
      */
     public function index()
     {
-        return view('admin.peserta-magang.index');
-        
+        return view('mahasiswa.dashboard.index');
     }
 
     /**
@@ -47,7 +46,7 @@ class PesertaMagangController extends Controller
      */
     public function show($id)
     {
-        return view('admin.peserta-magang.show');
+        //
     }
 
     /**
@@ -82,21 +81,5 @@ class PesertaMagangController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function uploadDataView(Request $request, $id)
-    {
-        return view('admin.peserta-magang.upload_data');
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @param Request $request
-     * @return void
-     */
-    public function uploadData(Request $request, $id)
-    {
-
     }
 }
