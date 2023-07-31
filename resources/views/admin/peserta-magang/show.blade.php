@@ -82,6 +82,10 @@
 							<span class="badge badge-warning">PENDING</span>
 							<span class="badge badge-danger">DITOLAK</span></div>
 					</div>
+					
+
+					<p class="bg-primary p-2 mt-2" for="">File Pengajuan KP :</p>
+
 					<div class="row">
 						<div class="col-md-3 font-weight-bolder">Proposal</div>
 						<div class="col-md-1 text-right">:</div>
@@ -89,15 +93,12 @@
 							<a href="#">Ini adalah link yang nantinya untuk melihat file proposal yang diupload</a>
 						</div>
 					</div>
+					
+
+					<p class="bg-primary p-2 mt-2" for="">File Perlengkapan KP :</p>
+
 					<div class="row">
-						<div class="col-md-3 font-weight-bolder">Surat Rekomendasi</div>
-						<div class="col-md-1 text-right">:</div>
-						<div class="col-md-8">
-							<a href="#">Ini adalah link yang nantinya untuk melihat file proposal yang diupload</a>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-3 font-weight-bolder">Twibbon</div>
+						<div class="col-md-3 font-weight-bolder">Surat Pernyataan</div>
 						<div class="col-md-1 text-right">:</div>
 						<div class="col-md-8">
 							<a href="#">Ini adalah link yang nantinya untuk melihat file proposal yang diupload</a>
@@ -111,13 +112,54 @@
 						</div>
 					</div>
 					<div class="row">
+						<div class="col-md-3 font-weight-bolder">Surat Rekomendasi</div>
+						<div class="col-md-1 text-right">:</div>
+						<div class="col-md-8">
+							<a href="#">Ini adalah link yang nantinya untuk melihat file proposal yang diupload</a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 font-weight-bolder">KTM</div>
+						<div class="col-md-1 text-right">:</div>
+						<div class="col-md-8">
+							<a href="#">Ini adalah link yang nantinya untuk melihat file proposal yang diupload</a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 font-weight-bolder">Surat Keterangan Sehat</div>
+						<div class="col-md-1 text-right">:</div>
+						<div class="col-md-8">
+							<a href="#">Ini adalah link yang nantinya untuk melihat file proposal yang diupload</a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 font-weight-bolder">BPJS</div>
+						<div class="col-md-1 text-right">:</div>
+						<div class="col-md-8">
+							<a href="#">Ini adalah link yang nantinya untuk melihat file proposal yang diupload</a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 font-weight-bolder">Foto</div>
+						<div class="col-md-1 text-right">:</div>
+						<div class="col-md-8">
+							<a href="#">Ini adalah link yang nantinya untuk melihat file proposal yang diupload</a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3 font-weight-bolder">Twibbon</div>
+						<div class="col-md-1 text-right">:</div>
+						<div class="col-md-8">
+							<a href="#">Ini adalah link yang nantinya untuk melihat file proposal yang diupload</a>
+						</div>
+					</div>
+					<div class="row">
 						<div class="col-md-3 font-weight-bolder">Surat Keterangan Selesai KP</div>
 						<div class="col-md-1 text-right">:</div>
 						<div class="col-md-8">
 							<a href="#">Ini adalah link yang nantinya untuk melihat file proposal yang diupload</a>
 						</div>
 					</div>
-
 					<hr>
 
 					<a href="#" class="btn btn-sm btn-info"><i class="fa fa-arrow-left mr-2"></i> Kembali</a>

@@ -11,6 +11,7 @@ use App\Http\Controllers\Guest\PusatInformasiController;
 use App\Http\Controllers\Guest\TentangSIGController;
 use App\Http\Controllers\Mahasiswa\DashboardController as MahasiswaDashboardController;
 use App\Http\Controllers\Mahasiswa\PengajuanMagangController;
+use App\Http\Controllers\Mahasiswa\UploadBerkasController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,7 +39,9 @@ Route::group([
     'as'         => 'mahasiswa.'], function() {
 
     Route::get('/', [MahasiswaDashboardController::class, 'index'])->name('dashboard.index');
+    
     Route::resource('pengajuan-magang', PengajuanMagangController::class);
+    Route::resource('upload-berkas', UploadBerkasController::class);
 });
 
 // Admin Login
