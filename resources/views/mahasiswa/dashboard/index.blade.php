@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard')
+@section('title', 'Dashboard Mahasiswa')
 
 @section('content')
 	<div class="row">
@@ -29,19 +29,29 @@
 					<div class="row ">
 						<div class="col-12">
 							<div class="text-center">
-								<i class="fa fa-user-circle-o text-gray mb-2" style="font-size: 120px"></i>
-								<h5>Nama Mahasiswa</h5>
+								<div class="overflow-hidden mb-3">
+									@if (is_null(Auth::user()->photo_upload_path))
+										<i class="fa fa-user-circle-o text-gray mb-2" style="font-size: 120px"></i>
+									@else
+										<img class="profile-user-img img-fluid img-fit-cover img-circle w-100 h-100" src="{{ asset('storage/' . Auth::user()->photo_upload_path) }}" alt="User profile picture">
+									@endif
+								</div>	
+								<h5>{{ Auth::user()->pengajuanMagang->name ?? Auth::user()->fullname }}</h5>
 								<p class="text-gray">Mahasiswa</p>
 							</div>
 
 							<hr>
 
-							<div class="form-group">
-								<label for="upload_foto">Upload</label>
-								<input type="file" name="upload_foto" id="upload_foto" class="form-control h-100 mb-0" >
-
-							</div>
-							<button type="submit" class="btn btn-primary btn-block">Update Foto</button>
+							<form action="{{ route('mahasiswa.dashboard.upload-photo') }}" method="post" enctype="multipart/form-data">
+								@csrf
+								@method('put')
+								<div class="form-group">
+									<label for="upload_foto">Upload</label>
+									<input type="file" name="upload_foto" id="upload_foto" class="form-control h-100 mb-0" accept="image/*">
+									
+								</div>
+								<button type="submit" class="btn btn-primary btn-block">Update Foto</button>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -53,6 +63,7 @@
 					<h5 class="card-title"><i class="fa fa-edit mr-2"></i>History Pengajuan Terakhir</h5>
 				</div>
 				<div class="card-body">
+					<a href="{{ route('mahasiswa.dashboard.download-berkas-magang') }}" class="btn btn-success btn-sm mb-3"><i class="fa fa-file-text mr-2"></i> Download Berkas Magang</a>
 					<table class="table table-bordered">
 						<thead>
 							<tr>
@@ -65,17 +76,40 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>Melkan Santoso</td>
-								<td>1721640002</td>
-								<td>Politeknik Elektronika Negeri Surabaya</td>
-								<td>08 Jul 2023</td>
-								<td>
-									<span class="badge badge-primary">DISETUJUI</span>
-									<span class="badge badge-warning">PENDING</span>
-								</td>
-							</tr>
+							@foreach ($pengajuan_magang as $item)
+								<tr>
+									<td>{{ $number++ }}</td>
+									<td>{{ $item->name }}</td>
+									<td>{{ $item->nim }}</td>
+									<td>{{ $item->instansi }}</td>
+									<td>{{ Carbon\Carbon::parse($item->created_at)->format('d M Y') }}</td>
+									<td>
+										@switch($item->status)
+											@case(0)
+												<span class="badge badge-warning">PENDING</span>
+												
+												@break
+											@case(1)
+												<span class="badge badge-primary">DISETUJUI</span>
+												
+												@break
+											@case(2)
+												<span class="badge badge-danger">DITOLAK</span>
+												
+												@break
+												
+										@endswitch
+									</td>
+								</tr>
+							@endforeach
+
+							@empty($pengajuan_magang)
+								<tr>
+									<td colspan="6">Data Kosong</td>
+								</tr>
+							@endempty
+
+							
 						</tbody>
 					</table>
 				</div>

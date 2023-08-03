@@ -21,6 +21,7 @@ class User extends Authenticatable
         'fullname',
         'email',
         'password',
+        'photo_upload_path'
     ];
 
     /**
@@ -41,4 +42,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function pengajuanMagang()
+    {
+        return $this->hasOne(PengajuanMagang::class);
+    }
 }

@@ -15,11 +15,6 @@
 						@elsecan('admin')
 							@include('layouts.navbar-menu.admin')
 						@endcan
-					
-						{{-- <li class="nav-item @if (Request::getRequestUri() == '/pengajuan-magang') active @endif">
-							<a class="nav-link" href="{{ route('mahasiswa.pengajuan-magang.index') }}">Pengajuan Magang</a>
-						</li> --}}
-						
 
 					@else
 						<li class="nav-item @if (Request::getRequestUri() == '/') active @endif">

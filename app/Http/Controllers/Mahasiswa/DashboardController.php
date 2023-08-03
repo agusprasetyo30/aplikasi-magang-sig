@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers\Mahasiswa;
 
+use App\Helpers\General;
 use App\Http\Controllers\Controller;
+use App\Models\PengajuanMagang;
+use App\Models\User;
+use Auth;
 use Illuminate\Http\Request;
+use Storage;
 
 class DashboardController extends Controller
 {
@@ -13,73 +18,46 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+    {         
+        $jumlah_halaman = 5;
+
+        $number = General::numberPagination($jumlah_halaman);
+
+        $pengajuan_magang = PengajuanMagang::where('user_id', Auth::user()->id)->get();
+
+        // dd($pengajuan_magang);
+        return view('mahasiswa.dashboard.index', compact('pengajuan_magang', 'number'));
+    }
+
+    public function downloadBerkasMagang()
     {
-        return view('mahasiswa.dashboard.index');
+        return view('mahasiswa.dashboard.download_berkas');
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Fungsi untuk upload foto profil
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return void
      */
-    public function create()
+    public function uploadPhoto(Request $request)
     {
-        //
-    }
+        if ($request->file('upload_foto')) {
+            // Delete Photo
+            if (!is_null(Auth::user()->photo_upload_path) && file_exists(storage_path('app/public/' . Auth::user()->photo_upload_path))) {
+                Storage::delete('public/' . Auth::user()->photo_upload_path);
+            }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+            $photo_upload_path = General::uploadImage($request->file('upload_foto'), 512, 512, 'foto-profil', 'document/user-photo');
+            
+            Auth::user()->update([
+                'photo_upload_path' => $photo_upload_path
+            ]);
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect()
+            ->route('mahasiswa.dashboard.index')
+            ->with('alert_type', 'success')
+            ->with('message', 'Update foto success');
     }
 }

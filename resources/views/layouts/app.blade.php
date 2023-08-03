@@ -25,6 +25,7 @@
 		<link href="{{ asset('vendor/select2/css/select2.min.css') }}" rel="stylesheet" />
 		<link href="{{ asset('vendor/select2/css/select2-bootstrap4.min.css') }}" rel="stylesheet" />
 		<link href="{{ asset('vendor/toastr/toastr.min.css') }}" rel="stylesheet" />
+		<link href="{{ asset('vendor/date-picker/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
 		
 		<style>
 			a.nav-link{
@@ -81,6 +82,7 @@
 		<!-- select2 js -->
 		<script src="{{ asset('vendor/select2/js/select2.min.js') }}"></script>
 		<script src="{{ asset('vendor/toastr/toastr.min.js') }}"></script>
+		<script src="{{ asset('vendor/date-picker/bootstrap-datepicker.min.js') }}"></script>
 
 		<script>
 			// untuk sweetalert

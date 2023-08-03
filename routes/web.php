@@ -9,9 +9,12 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Guest\KuotaMagangController;
 use App\Http\Controllers\Guest\PusatInformasiController;
 use App\Http\Controllers\Guest\TentangSIGController;
+use App\Http\Controllers\Mahasiswa\BerkasPengajuanMagangController;
 use App\Http\Controllers\Mahasiswa\DashboardController as MahasiswaDashboardController;
 use App\Http\Controllers\Mahasiswa\PengajuanMagangController;
 use App\Http\Controllers\Mahasiswa\UploadBerkasController;
+use App\Http\Controllers\Select2Controller;
+use App\Models\BerkasPengajuanMagang;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,9 +42,11 @@ Route::group([
     'as'         => 'mahasiswa.'], function() {
 
     Route::get('/', [MahasiswaDashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/download-berkas-magang', [MahasiswaDashboardController::class, 'downloadBerkasMagang'])->name('dashboard.download-berkas-magang');
+    Route::put('/upload-photo', [MahasiswaDashboardController::class, 'uploadPhoto'])->name('dashboard.upload-photo');
     
     Route::resource('pengajuan-magang', PengajuanMagangController::class);
-    Route::resource('upload-berkas', UploadBerkasController::class);
+    Route::resource('upload-berkas', BerkasPengajuanMagangController::class);
 });
 
 // Admin Login
@@ -64,6 +69,16 @@ Route::group([
         Route::resource('upload-twibbon', UploadTwibbonController::class);
         Route::resource('user-management', UserManagementController::class);
 });
+
+// Select2
+Route::group([
+    'prefix'     => 'select2',
+    'middleware' => ['auth'],
+    'as'         => 'select2.'], function() {
+    
+    Route::get('/jurusan', [Select2Controller::class, 'jurusanSelect2'])->name('jurusan');
+});
+
 
 
 
