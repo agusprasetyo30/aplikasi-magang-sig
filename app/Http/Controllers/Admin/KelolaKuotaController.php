@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\General;
 use App\Http\Controllers\Controller;
+use App\Models\KuotaMagang;
 use Illuminate\Http\Request;
 
 class KelolaKuotaController extends Controller
@@ -14,8 +16,13 @@ class KelolaKuotaController extends Controller
      */
     public function index()
     {
-        return view('admin.kelola-kuota.index');
-        
+        $jumlah_halaman = 5;
+
+        $number = General::numberPagination($jumlah_halaman);
+
+        $kelola_kuota = KuotaMagang::paginate($jumlah_halaman);
+
+        return view('admin.kelola-kuota.index', compact('number', 'kelola_kuota'));
     }
 
     /**
@@ -36,7 +43,17 @@ class KelolaKuotaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        KuotaMagang::create([
+            'jurusan_id'         => $request->jurusan,
+            'jenjang_pendidikan' => $request->jenjang_pendidikan,
+            'kuota'              => $request->kuota,
+            'bulan_pelaksanaan'  => $request->bulan_pelaksanaan
+        ]);
+
+        return redirect()
+            ->route('admin.kelola-kuota.index')
+            ->with('alert_type', 'success')
+            ->with('message', 'Kelola kuota  berhasil ditambahkan');
     }
 
     /**
@@ -58,7 +75,9 @@ class KelolaKuotaController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.kelola-kuota.edit');
+        $kelola_kuota = KuotaMagang::where('id', $id)->first();
+
+        return view('admin.kelola-kuota.edit', compact('kelola_kuota'));
     }
 
     /**
@@ -70,7 +89,17 @@ class KelolaKuotaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        KuotaMagang::where('id', $id)->update([
+            'jurusan_id'         => $request->jurusan,
+            'jenjang_pendidikan' => $request->jenjang_pendidikan,
+            'kuota'              => $request->kuota,
+            'bulan_pelaksanaan'  => $request->bulan_pelaksanaan
+        ]);
+
+        return redirect()
+            ->route('admin.kelola-kuota.index')
+            ->with('alert_type', 'success')
+            ->with('message', 'Kelola kuota berhasil diupdate');
     }
 
     /**
@@ -81,6 +110,11 @@ class KelolaKuotaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        KuotaMagang::where('id', $id)->delete();
+
+        return redirect()
+            ->route('admin.kelola-kuota.index')
+            ->with('alert_type', 'success')
+            ->with('message', 'Data berhasil dihapus');
     }
 }

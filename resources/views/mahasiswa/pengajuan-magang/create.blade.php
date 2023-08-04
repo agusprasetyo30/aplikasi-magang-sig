@@ -36,8 +36,7 @@
 							</div>
 							<div class="form-group">
 								<label for="jurusan">Jurusan</label>
-								<select name="jurusan" id="jurusan" class="select2 w-100" required></select>
-		
+								<select name="jurusan" id="jurusan" class="select2 w-100" required data-jurusan-select2="{{ route('select2.jurusan') }}"></select>
 							</div>
 							<div class="form-group">
 								<label for="jenjang_pendidikan">Jenjang Pendidikan<x-required/></label>
@@ -158,7 +157,7 @@
 			placeholder: 'Pilih jurusan',
 			allowClear: true,
 			ajax: {
-				url: "/select2/jurusan" 
+				url: $('.select2[name=jurusan]').data('jurusan-select2')
 			}
 		})
 		$('.select2[name=jenjang_pendidikan]').select2()

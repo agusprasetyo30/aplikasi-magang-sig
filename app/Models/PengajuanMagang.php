@@ -5,10 +5,12 @@ namespace App\Models;
 use App\Models\Master\Jurusan;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PengajuanMagang extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'pengajuan_magang';
 

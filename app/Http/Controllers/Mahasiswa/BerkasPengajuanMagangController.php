@@ -77,12 +77,14 @@ class BerkasPengajuanMagangController extends Controller
     {
         $berkas_pengajuan_magang = BerkasPengajuanMagang::where('pengajuan_magang_id', $id)->first();
 
+        // Validasi
         $validation_input = $this->checkValidationInput($request);
 
         if ($validation_input->fails()) {
             return redirect()->back()->withErrors($validation_input)->withInput();
         }
 
+        // Proses uploading
         if ($request->file('surat_pernyataan')) {
             $upload_data_surat_pernyataan = General::uploadFile($request->file('surat_pernyataan'), 'surat-pernyataan', 'document/surat-pernyataan');
 

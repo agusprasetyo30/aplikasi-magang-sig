@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\General;
 use App\Http\Controllers\Controller;
+use App\Models\PengajuanMagang;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -14,7 +17,16 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard.index');
+        $total_halaman = 5; // total data yang ditampilkan
+        $number = General::numberPagination($total_halaman);
+
+        $pengajuan_magang = PengajuanMagang::query();
+        $total_mahasiswa = $this->hitungTotalMahasiswa($pengajuan_magang->get());
+        $total_pengajuan_magang = $pengajuan_magang->get()->count();
+
+        $pengajuan_magang = $pengajuan_magang->paginate($total_halaman);
+        
+        return view('admin.dashboard.index', compact('pengajuan_magang', 'number', 'total_mahasiswa', 'total_pengajuan_magang'));
     }
 
     /**
@@ -82,4 +94,14 @@ class DashboardController extends Controller
     {
         //
     }
+
+    private function hitungTotalMahasiswa($pengajuan_magang)
+    {
+        $total = 0;
+        foreach ($pengajuan_magang as $value) {
+            $total = $total + ($value->jumlah_total_kelompok);
+        }
+
+        return $total;
+    } 
 }

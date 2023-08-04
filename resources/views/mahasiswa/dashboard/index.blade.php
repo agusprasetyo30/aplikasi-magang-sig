@@ -108,9 +108,15 @@
 									<td colspan="6">Data Kosong</td>
 								</tr>
 							@endempty
-
 							
 						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="6" align="center">
+									{{ $pengajuan_magang->appends(Request::all())->links()}}
+								</td>
+							</tr>
+						</tfoot>
 					</table>
 				</div>
 			</div>

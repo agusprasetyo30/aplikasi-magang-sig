@@ -23,7 +23,7 @@ class DashboardController extends Controller
 
         $number = General::numberPagination($jumlah_halaman);
 
-        $pengajuan_magang = PengajuanMagang::where('user_id', Auth::user()->id)->get();
+        $pengajuan_magang = PengajuanMagang::where('user_id', Auth::user()->id)->paginate($jumlah_halaman);
 
         // dd($pengajuan_magang);
         return view('mahasiswa.dashboard.index', compact('pengajuan_magang', 'number'));

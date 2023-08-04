@@ -16,7 +16,7 @@
 		<div class="col-6">
 			<div class="small-box bg-info">
 				<div class="inner">
-					<h3>150</h3>
+					<h3>{{ $total_mahasiswa }}</h3>
 	
 					<p>Total Mahasiswa</p>
 				</div>
@@ -31,7 +31,7 @@
 		<div class="col-6">
 			<div class="small-box bg-info">
 				<div class="inner">
-					<h3>150</h3>
+					<h3>{{ $total_pengajuan_magang }}</h3>
 	
 					<p>Total Pengajuan</p>
 				</div>
@@ -48,7 +48,7 @@
 		<div class="col-12">
 			<div class="card card-info">
 				<div class="card-header">
-					<h5 class="card-title"><i class="fa fa-list mr-2"></i> List Pengajuan Pending</h5>
+					<h5 class="card-title"><i class="fa fa-list mr-2"></i> List Pengajuan Magang</h5>
 				</div>
 				<div class="card-body">
 					<table class="table table-bordered">
@@ -63,18 +63,42 @@
 							</tr>
 						</thead>
 						<tbody>
+
+							@foreach ($pengajuan_magang as $value)
+								<tr>
+									<td>{{ $number++ }}</td>
+									<td>{{ $value->name }}</td>
+									<td>{{ $value->nim }}</td>
+									<td>{{ $value->instansi }}</td>
+									<td>{{ \Carbon\Carbon::parse($value->created_at)->format('d M Y') }}</td>
+									<td>
+										@switch($value->status)
+											@case(0)
+												<span class="badge badge-warning">PENDING</span>
+												@break
+											@case(1)
+												<span class="badge badge-primary">DISETUJUI</span>
+												@break
+
+											@case(2)
+												<span class="badge badge-danger">DITOLAK</span>
+												@break
+												
+										@endswitch
+									</td>
+								</tr>
+							@endforeach
+
+						</tbody>
+						<tfoot>
 							<tr>
-								<td>1</td>
-								<td>Melkan Santoso</td>
-								<td>1721640002</td>
-								<td>Politeknik Elektronika Negeri Surabaya</td>
-								<td>08 Jul 2023</td>
-								<td>
-									<span class="badge badge-primary">DISETUJUI</span>
-									<span class="badge badge-warning">PENDING</span>
+								<td colspan="2" align="center">
+									{{-- Showing {{ $pengajuan_magang->firstItem() }} to {{ $pengajuan_magang->lastItem() }} of total {{$pengajuan_magang->total()}} entries --}}
+
+									{{-- {{ $pengajuan_magang->appends(Request::all())->links()}} --}}
 								</td>
 							</tr>
-						</tbody>
+						</tfoot>
 					</table>
 				</div>
 			</div>

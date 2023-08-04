@@ -20,17 +20,29 @@
 						</tr>
 					</thead>
 					<tbody>
+						@foreach ($kelola_kuota as $value)
 						<tr>
-							<td>1</td>
-							<td>Melkan Santoso</td>
-							<td>4</td>
+							<td>{{ $number++ }}</td>
+							<td>{{ $value->jurusan->name }}</td>
+							<td>{{ $value->kuota }}</td>
 							<td>
-								<a href="#" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
-								<a href="{{ route('admin.kelola-kuota.edit', 1) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-								<a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+								<form action="{{ route('admin.kelola-kuota.destroy', $value->id) }}" method="post">
+									<a href="{{ route('admin.kelola-kuota.edit', $value->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+									@csrf
+									@method('delete')
+									<button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Hapus data ?')"><i class="fa fa-trash"></i></button>
+								</form>
 							</td>
 						</tr>
+						@endforeach
 					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="4" align="center">
+								{{ $kelola_kuota->appends(Request::all())->links()}}
+							</td>
+						</tr>
+					</tfoot>
 				</table>
 			</div>
 		</div>
