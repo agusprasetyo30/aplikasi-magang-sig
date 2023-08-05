@@ -7,9 +7,16 @@
 
 <div class="card">
 	<div class="card-body">
-		<div class="row mt-4">
+		<div class="row ">
+			<div class="col-3">
+				<input type="search" name="search" id="search" class="form-control" placeholder="Cari jurusan ...">
+			</div>
+			<div class="col-9">
+				<div class="text-right">
+					<a href="{{ route('admin.kelola-kuota.create') }}" class="btn btn-primary btn-sm mb-3"><i class="fa fa-plus"></i> Input Kuota KP</a>
+				</div>
+			</div>
 			<div class="col-12">
-				<a href="{{ route('admin.kelola-kuota.create') }}" class="btn btn-primary mb-3 float-right"><i class="fa fa-plus"></i> Input Kuota KP</a>
 				<table class="table table-bordered table-hover table-striped">
 					<thead>
 						<tr>

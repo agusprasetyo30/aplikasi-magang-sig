@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Guest;
 
+use App\Helpers\General;
 use App\Http\Controllers\Controller;
+use App\Models\KuotaMagang;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -15,8 +17,12 @@ class KuotaMagangController extends Controller
      */
     public function index()
     {
-        // dd(Auth::user());
-        return view('guest.kuota_magang');
+        $jumlah_halaman = 10;
+        $number = General::numberPagination($jumlah_halaman);
+        
+        $kuota_magang = KuotaMagang::paginate($jumlah_halaman);
+        
+        return view('guest.kuota_magang', compact('kuota_magang', 'number'));
     }
 
     /**

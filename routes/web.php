@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\JurusanController;
 use App\Http\Controllers\Admin\KelolaKuotaController;
 use App\Http\Controllers\Admin\PesertaMagangController;
 use App\Http\Controllers\Admin\UploadTwibbonController;
@@ -64,6 +65,7 @@ Route::group([
             Route::put('/{id}/upload-data', [PesertaMagangController::class, 'uploadData'])->name('upload-data');
         });
 
+        Route::resource('jurusan', JurusanController::class);
         Route::resource('kelola-kuota', KelolaKuotaController::class);
         Route::resource('peserta-magang', PesertaMagangController::class);
         Route::resource('upload-twibbon', UploadTwibbonController::class);

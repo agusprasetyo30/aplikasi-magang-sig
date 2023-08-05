@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Helpers\General;
+use App\Http\Controllers\Controller;
 use App\Models\Master\Jurusan;
 use App\Models\MJurusan;
 use Illuminate\Http\Request;
@@ -15,7 +17,12 @@ class JurusanController extends Controller
      */
     public function index()
     {
-        //
+        $jumlah_halaman = 5;
+        $number = General::numberPagination($jumlah_halaman);
+        
+        $jurusan = Jurusan::paginate($jumlah_halaman);
+
+        return view('admin.jurusan.index', compact('number', 'jurusan'));
     }
 
     /**
@@ -25,7 +32,7 @@ class JurusanController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.jurusan.create');
     }
 
     /**
@@ -36,7 +43,12 @@ class JurusanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Jurusan::create($request->all());
+
+        return redirect()
+            ->route('admin.jurusan.index')
+            ->with('alert_type', 'success')
+            ->with('message', 'Jurusan berhasil ditambahkan');
     }
 
     /**
@@ -47,7 +59,6 @@ class JurusanController extends Controller
      */
     public function show(Jurusan $jurusan)
     {
-        //
     }
 
     /**
@@ -58,7 +69,7 @@ class JurusanController extends Controller
      */
     public function edit(Jurusan $jurusan)
     {
-        //
+        return view('admin.jurusan.edit', compact('jurusan'));
     }
 
     /**
@@ -70,7 +81,12 @@ class JurusanController extends Controller
      */
     public function update(Request $request, Jurusan $jurusan)
     {
-        //
+        $jurusan->update($request->all());
+
+        return redirect()
+            ->route('admin.jurusan.index')
+            ->with('alert_type', 'success')
+            ->with('message', 'Jurusan berhasil diupdate');
     }
 
     /**
@@ -81,6 +97,11 @@ class JurusanController extends Controller
      */
     public function destroy(Jurusan $jurusan)
     {
-        //
+        $jurusan->delete();
+
+        return redirect()
+            ->route('admin.jurusan.index')
+            ->with('alert_type', 'success')
+            ->with('message', 'Jurusan berhasil dihapus');
     }
 }
