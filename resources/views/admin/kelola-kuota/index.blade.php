@@ -2,18 +2,40 @@
 
 @section('title', 'Dashboard')
 
+@push('css')
+	<style>
+		ul.pagination {
+			justify-content: center;
+		}
+
+		.add-kelola-kuota-button {
+			position: absolute;
+			right: 8px;
+			bottom: 0;
+		}
+	</style>
+@endpush
+
 @section('content')
 <h3 class="mb-3"><span>Kelola Kuota</span></h3>
 
 <div class="card">
 	<div class="card-body">
 		<div class="row ">
-			<div class="col-3">
-				<input type="search" name="search" id="search" class="form-control" placeholder="Cari jurusan ...">
+			<div class="col-4" style="margin-bottom: 20px">
+				<form action="" method="get">
+					<label>
+						Search:
+					</label>
+					<div class="input-group">
+						<input type="search" class="form-control" name="jurusan" placeholder="Masukan jurusan ..." value="{{ Request::get('jurusan') ?? '' }}">
+							<button type="submit" class="btn btn-primary ml-2"><i class="fa fa-search"></i></button>
+					</div>
+				</form>
 			</div>
-			<div class="col-9">
+			<div class="col-8">
 				<div class="text-right">
-					<a href="{{ route('admin.kelola-kuota.create') }}" class="btn btn-primary btn-sm mb-3"><i class="fa fa-plus"></i> Input Kuota KP</a>
+					<a href="{{ route('admin.kelola-kuota.create') }}" class="btn btn-primary btn-sm mb-3 add-kelola-kuota-button"><i class="fa fa-plus"></i> Input Kuota KP</a>
 				</div>
 			</div>
 			<div class="col-12">
@@ -42,6 +64,12 @@
 							</td>
 						</tr>
 						@endforeach
+
+						@if (count($kelola_kuota) == 0)
+							<tr>
+								<td colspan="4" align=center>Data tidak ditemukan</td>
+							</tr>
+						@endif
 					</tbody>
 					<tfoot>
 						<tr>

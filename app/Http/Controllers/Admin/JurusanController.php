@@ -15,12 +15,16 @@ class JurusanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $jumlah_halaman = 5;
         $number = General::numberPagination($jumlah_halaman);
         
-        $jurusan = Jurusan::paginate($jumlah_halaman);
+        $jurusan = Jurusan::query();
+
+        if ($request->get('jurusan_name')) {
+            $jurusan = $jurusan->where('name', 'like', '%' . $request->get('jurusan_name') . '%')->paginate($jumlah_halaman);
+        }
 
         return view('admin.jurusan.index', compact('number', 'jurusan'));
     }

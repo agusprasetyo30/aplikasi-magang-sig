@@ -15,13 +15,18 @@ class KuotaMagangController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $jumlah_halaman = 10;
         $number = General::numberPagination($jumlah_halaman);
         
         $kuota_magang = KuotaMagang::paginate($jumlah_halaman);
-        // $kuota_magang->bulan_pelaksanaan = General::generateBulan($kuota_magang->bulan_pelaksanaan);
+
+        if (!is_null($request->jurusan)) {            
+            $kuota_magang = KuotaMagang::whereHas('jurusan', function($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->get('jurusan') . '%');
+            })->paginate($jumlah_halaman);
+        }
 
         return view('guest.kuota_magang', compact('kuota_magang', 'number'));
     }

@@ -82,6 +82,12 @@
 							</td>
 						</tr>
 					@endforeach
+
+					@if (count($users) == 0)
+						<tr>
+							<td colspan="5" align=center>Data tidak ditemukan</td>
+						</tr>
+					@endif
 				</tbody>
 				<tfoot>
 					<tr>

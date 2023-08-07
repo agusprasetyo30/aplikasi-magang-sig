@@ -20,7 +20,7 @@ class DashboardController extends Controller
         $total_halaman = 5; // total data yang ditampilkan
         $number = General::numberPagination($total_halaman);
 
-        $pengajuan_magang = PengajuanMagang::query();
+        $pengajuan_magang = PengajuanMagang::query()->orderBy('created_at', 'desc');
         $total_mahasiswa = $this->hitungTotalMahasiswa($pengajuan_magang->get());
         $total_pengajuan_magang = $pengajuan_magang->get()->count();
 

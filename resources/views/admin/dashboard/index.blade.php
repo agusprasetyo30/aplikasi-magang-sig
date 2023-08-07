@@ -74,7 +74,7 @@
 
 							@foreach ($pengajuan_magang as $value)
 								<tr>
-									<td>{{ $number++ }}</td>
+									<td>{{ $number++ }}.</td>
 									<td>{{ $value->name }}</td>
 									<td>{{ $value->nim }}</td>
 									<td>{{ $value->instansi }}</td>

@@ -14,13 +14,19 @@ class KelolaKuotaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $jumlah_halaman = 5;
 
         $number = General::numberPagination($jumlah_halaman);
 
         $kelola_kuota = KuotaMagang::paginate($jumlah_halaman);
+
+        if (!is_null($request->jurusan)) {            
+            $kelola_kuota = KuotaMagang::whereHas('jurusan', function($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->get('jurusan') . '%');
+            })->paginate($jumlah_halaman);
+        }
 
         return view('admin.kelola-kuota.index', compact('number', 'kelola_kuota'));
     }

@@ -11,20 +11,19 @@
 
 	<div class="card">
 		<div class="card-body">
-			<div class="row">
-				<div class="col-md-3">
-					<div class="form-group searching">
+			<form action="" method="get">
+				<div class="row mb-2">
+					<div class="col-md-4">
 						<label>
 							Search:
 						</label>
-						<input type="search" class="form-control" name="job_grading_search" aria-controls="job_grading_table">
+						<div class="input-group">
+							<input type="search" class="form-control" name="search" placeholder="Masukan data pencarian ..." value="{{ Request::get('search') ?? '' }}">
+								<button type="submit" class="btn btn-primary ml-2"><i class="fa fa-search"></i></button>
+						</div>
 					</div>
 				</div>
-				{{-- <div class="col-md-9">
-					<button type="button" class="btn btn-primary btn-add-job-grading float-right">
-						<i class="fas fa-plus"></i> Add Job Grading</button>
-				</div> --}}
-			</div>
+			</form>
 
 			<div class="row">
 				<table class="table table-bordered">
@@ -82,6 +81,12 @@
 								</td>
 							</tr>
 						@endforeach
+
+						@if (count($peserta_magang) == 0)
+							<tr>
+								<td colspan="6" align=center>Data tidak ditemukan</td>
+							</tr>
+						@endif
 					</tbody>
 					<tfoot>
 						<tr>

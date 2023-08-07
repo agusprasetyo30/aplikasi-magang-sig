@@ -15,12 +15,21 @@ class PesertaMagangController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $jumlah_halaman = 5;
         $number = General::numberPagination($jumlah_halaman);
         
         $peserta_magang = PengajuanMagang::paginate($jumlah_halaman);
+        
+        if (!is_null($request->search)) {
+            // Pencarian nama, jurusan/prodi, dan universitas/instansi
+            $peserta_magang = PengajuanMagang::whereHas('jurusan', function($q) use ($request) {
+                    $q->where('name', 'like', '%' . $request->get('search') . '%');
+                })
+                ->orWhere('name', 'like', '%' . $request->get('search') . '%')
+                ->orWhere('instansi', 'like', '%' . $request->get('search') . '%')->paginate($jumlah_halaman);
+        }
 
         return view('admin.peserta-magang.index', compact('number', 'peserta_magang'));
         

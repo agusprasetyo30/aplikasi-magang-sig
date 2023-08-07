@@ -21,16 +21,23 @@
 
 <div class="card">
 	<div class="card-body">
+		<form action="" method="get">
+				<div class="row mb-2">
+					<div class="col-md-4">
+						<label>
+							Search:
+						</label>
+						<div class="input-group">
+							<input type="search" class="form-control" name="jurusan_name" placeholder="Masukan nama jurusan ..." value="{{ Request::get('jurusan_name') ?? '' }}">
+								<button type="submit" class="btn btn-primary ml-2"><i class="fa fa-search"></i></button>
+						</div>
+					</div>
+				<div class="col-md-8 text-right">
+					<a href="{{ route('admin.jurusan.create') }}" class="btn btn-primary add-jurusan-button"><i class="fa fa-plus"></i> Tambah Jurusan</button></a>
+				</div>
+			</div>
+		</form>
 		<div class="row">
-			<div class="col-md-3 mb-2">
-				<label>
-					Search:
-				</label>
-				<input type="search" class="form-control" name="job_grading_search" aria-controls="job_grading_table">
-			</div>
-			<div class="col-md-9 text-right mb-2">
-				<a href="{{ route('admin.jurusan.create') }}" class="btn btn-primary add-jurusan-button"><i class="fa fa-plus mr-2"></i> Tambah Jurusan</a>
-			</div>
 			<div class="col-12">
 				<table class="table table-bordered table-hover table-striped">
 					<thead>
@@ -57,6 +64,12 @@
 							</td>
 						</tr>
 						@endforeach
+
+						@if (count($jurusan) == 0)
+							<tr>
+								<td colspan="4" align=center>Data tidak ditemukan</td>
+							</tr>
+						@endif
 					</tbody>
 					<tfoot>
 						<tr>

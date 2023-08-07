@@ -63,7 +63,11 @@
 					<h5 class="card-title"><i class="fa fa-edit mr-2"></i>History Pengajuan Terakhir</h5>
 				</div>
 				<div class="card-body">
-					<a href="{{ route('mahasiswa.dashboard.download-berkas-magang') }}" class="btn btn-success btn-sm mb-3"><i class="fa fa-file-text mr-2"></i> Download Berkas Magang</a>
+					@if (Auth::user()->pengajuanMagang)
+						@if (Auth::user()->pengajuanMagang->status == 1)
+							<a href="{{ route('mahasiswa.dashboard.download-berkas-magang') }}" class="btn btn-success btn-sm mb-3"><i class="fa fa-file-text mr-2"></i> Download Berkas Magang</a>
+						@endif
+					@endif
 					<table class="table table-bordered">
 						<thead>
 							<tr>
