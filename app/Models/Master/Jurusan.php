@@ -2,6 +2,7 @@
 
 namespace App\Models\Master;
 
+use App\Models\KuotaMagang;
 use App\Models\PengajuanMagang;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,8 +12,6 @@ class Jurusan extends Model
 {
     use HasFactory;
     use SoftDeletes;
-
-
     
     protected $fillable = [
         'name', 
@@ -22,5 +21,10 @@ class Jurusan extends Model
     public function pengajuanMagang()
     {
         return $this->hasOne(PengajuanMagang::class);
+    }
+
+    public function kuotaMagang()
+    {
+        return $this->hasOne(KuotaMagang::class);
     }
 }

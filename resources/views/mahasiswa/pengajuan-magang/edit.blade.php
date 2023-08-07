@@ -54,6 +54,10 @@
 								</select>
 							</div>
 							<div class="form-group">
+								<label for="telepon">Telepon</label>
+								<input type="text" class="form-control" name="telepon" id="telepon" value="{{ $pengajuan_magang->telepon }}" required>
+							</div>
+							<div class="form-group">
 								<label for="rekomendasi">Rekomendasi <x-optional/></label>
 								<input type="text" class="form-control" name="rekomendasi" id="rekomendasi" value="{{ $pengajuan_magang->rekomendasi }}">
 							</div>

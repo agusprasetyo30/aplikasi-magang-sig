@@ -21,6 +21,7 @@ class PengajuanMagang extends Model
         'jurusan_id',
         'user_id',
         'jenjang_pendidikan',
+        'telepon',
         'rekomendasi',
         'jumlah_total_kelompok',
         'nama_anggota_kelompok',

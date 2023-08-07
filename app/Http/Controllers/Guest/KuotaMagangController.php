@@ -21,7 +21,8 @@ class KuotaMagangController extends Controller
         $number = General::numberPagination($jumlah_halaman);
         
         $kuota_magang = KuotaMagang::paginate($jumlah_halaman);
-        
+        // $kuota_magang->bulan_pelaksanaan = General::generateBulan($kuota_magang->bulan_pelaksanaan);
+
         return view('guest.kuota_magang', compact('kuota_magang', 'number'));
     }
 

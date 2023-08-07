@@ -31,35 +31,65 @@
 					<thead>
 						<tr>
 							<th width="5%">No</th>
-							<th width="25%">Nama</th>
-							<th width="20%">Jurusan / Program Studi</th>
-							<th width="25%">Universitas</th>
+							<th width="20%">Nama</th>
+							<th width="25%">Jurusan / Program Studi</th>
+							<th width="20%">Universitas</th>
 							<th width="10%">Status</th>
 							<th width="15%">Action</th>
 						</tr>
 					</thead>
 					<tbody>
+						@foreach ($peserta_magang as $value)
+							<tr>
+								<td>{{ $number++ }}</td>
+								<td>{{ $value->name }}</td>
+								<td>{{ $value->jurusan->name }}</td>
+								<td>
+									{{ $value->instansi }}
+								</td>
+								<td>
+									@switch($value->status)
+										@case(0)
+											<span class="badge badge-warning">PENDING</span>
+											@break
+
+										@case(1)
+											<span class="badge badge-primary">DISETUJUI</span>
+											@break
+
+										@case(2)
+											<span class="badge badge-danger">DITOLAK</span>
+											@break											
+									@endswitch
+								</td>
+								<td>
+									@switch($value->status)
+										@case(0)
+											<a href="#" class="btn btn-success btn-sm btn-block text-left"><i class="fa fa-check mr-2"></i> Disetujui</a>
+											<a href="#" class="btn btn-danger btn-sm btn-block text-left"><i class="fa fa-times mr-2"></i> Ditolak</a>
+											@break
+
+										@case(1)
+											<a href="{{ route('admin.peserta-magang.upload-data-view', 1) }}" class="btn btn-primary btn-sm btn-block text-left"><i class="fa fa-upload mr-2"></i> Upload Data</a>
+											<a href="{{ route('admin.peserta-magang.show', 1) }}" class="btn btn-info btn-sm btn-block text-left"><i class="fa fa-list mr-2"></i> Details</a>
+											@break
+
+										@case(2)
+											<a href="{{ route('admin.peserta-magang.show', 1) }}" class="btn btn-info btn-sm btn-block text-left"><i class="fa fa-list mr-2"></i> Details</a>
+											@break											
+									@endswitch
+									<a href="#" class="btn btn-danger btn-sm btn-block text-left"><i class="fa fa-trash mr-2"></i> Hapus</a>
+								</td>
+							</tr>
+						@endforeach
+					</tbody>
+					<tfoot>
 						<tr>
-							<td>1</td>
-							<td>Melkan Santoso</td>
-							<td>Teknik Informatika</td>
-							<td>
-								Politeknik Elektronika Negeri Surabaya
-							</td>
-							<td>
-								<span class="badge badge-primary">DISETUJUI</span>
-								<span class="badge badge-warning">PENDING</span>
-								<span class="badge badge-danger">DITOLAK</span>
-							</td>
-							<td>
-								<a href="#" class="btn btn-success btn-sm btn-block text-left"><i class="fa fa-check mr-2"></i> Disetujui</a>
-								<a href="#" class="btn btn-danger btn-sm btn-block text-left"><i class="fa fa-times mr-2"></i> Ditolak</a>
-								<a href="{{ route('admin.peserta-magang.upload-data-view', 1) }}" class="btn btn-primary btn-sm btn-block text-left"><i class="fa fa-upload mr-2"></i> Upload Data</a>
-								<a href="{{ route('admin.peserta-magang.show', 1) }}" class="btn btn-info btn-sm btn-block text-left"><i class="fa fa-list mr-2"></i> Details</a>
-								<a href="#" class="btn btn-danger btn-sm btn-block text-left"><i class="fa fa-trash mr-2"></i> Hapus</a>
+							<td colspan="6">
+								{{ $peserta_magang->appends(Request::all())->links()}}
 							</td>
 						</tr>
-					</tbody>
+					</tfoot>
 				</table>
 			</div>
 		</div>

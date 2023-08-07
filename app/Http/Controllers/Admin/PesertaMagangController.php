@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\General;
 use App\Http\Controllers\Controller;
+use App\Models\PengajuanMagang;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PesertaMagangController extends Controller
@@ -14,7 +17,12 @@ class PesertaMagangController extends Controller
      */
     public function index()
     {
-        return view('admin.peserta-magang.index');
+        $jumlah_halaman = 5;
+        $number = General::numberPagination($jumlah_halaman);
+        
+        $peserta_magang = PengajuanMagang::paginate($jumlah_halaman);;
+
+        return view('admin.peserta-magang.index', compact('number', 'peserta_magang'));
         
     }
 
@@ -47,7 +55,25 @@ class PesertaMagangController extends Controller
      */
     public function show($id)
     {
-        return view('admin.peserta-magang.show');
+        $merge_nama_anggota = '';
+        $peserta_magang = PengajuanMagang::where('id', $id)->first();
+
+        $peserta_magang->periode_kp = General::generateBulan($peserta_magang->jurusan->kuotaMagang->bulan_pelaksanaan);
+        $peserta_magang->created_at_formatted = Carbon::parse($peserta_magang->created_at)->format('d F y');
+        $peserta_magang->periode_awal = Carbon::parse($peserta_magang->periode_awal)->format('d F y');
+        $peserta_magang->periode_akhir = Carbon::parse($peserta_magang->periode_akhir)->format('d F y');
+
+        // untuk proses nama list anggota
+        $nama_anggota_kelompok = json_decode($peserta_magang->nama_anggota_kelompok);
+        
+        foreach ($nama_anggota_kelompok as $key => $value) {
+            $merge_nama_anggota = $merge_nama_anggota . $nama_anggota_kelompok[$key];
+
+            if ($key != count($nama_anggota_kelompok) - 1) {
+                $merge_nama_anggota = $merge_nama_anggota . ', ';
+            }
+        }
+        return view('admin.peserta-magang.show', compact('peserta_magang', 'merge_nama_anggota'));
     }
 
     /**

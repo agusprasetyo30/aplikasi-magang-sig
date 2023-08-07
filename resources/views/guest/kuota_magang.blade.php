@@ -19,46 +19,7 @@
 				<tr>
 					<td>{{ $number++ }}. </td>
 					<td>{{ $value->jurusan->name }}</td>
-					<td>
-						@switch($value->bulan_pelaksanaan)
-							@case(1)
-								Januari
-								@break
-							@case(2)
-								Februari
-								@break
-							@case(3)
-								Maret
-								@break
-							@case(4)
-								April
-								@break
-							@case(5)
-								Mei
-								@break
-							@case(6)
-								Juni
-								@break
-							@case(7)
-								Juli
-								@break
-							@case(8)
-								Agustus
-								@break
-							@case(9)
-								September
-								@break
-							@case(10)
-								Oktober
-								@break
-							@case(11)
-								Nopember
-								@break
-							@case(12)
-								Desember
-								@break
-						@endswitch
-					</td>
+					<td>{{ \App\Helpers\General::generateBulan($value->bulan_pelaksanaan) }}</td>
 					<td>{{ $value->kuota }}</td>
 				</tr>
 			@endforeach
