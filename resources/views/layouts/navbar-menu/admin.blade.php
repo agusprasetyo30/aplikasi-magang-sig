@@ -7,10 +7,10 @@
 <li class="nav-item @if (Request::is('admin/peserta-magang*')) active @endif">
 	<a class="nav-link" href="{{ route('admin.peserta-magang.index') }}">Peserta Magang</a>
 </li>
-<li class="nav-item @if (Request::getRequestUri() == '/admin/jurusan*') active @endif">
+<li class="nav-item @if (Request::is('admin/jurusan*')) active @endif">
 	<a class="nav-link" href="{{ route('admin.jurusan.index') }}">Jurusan</a>
 </li>
-<li class="nav-item @if (Request::getRequestUri() == '/admin/user-management*') active @endif">
+<li class="nav-item @if (Request::is('admin/user-management*')) active @endif">
 	<a class="nav-link" href="{{ route('admin.user-management.index') }}">User Management</a>
 </li>
 

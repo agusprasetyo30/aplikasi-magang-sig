@@ -2,6 +2,14 @@
 
 @section('title', 'Dashboard')
 
+@push('css')
+	<style>
+		ul.pagination {
+			justify-content: center;
+		}
+	</style>
+@endpush
+
 @section('content')
 	<div class="row mb-3">
 		<div class="col-6">
@@ -54,12 +62,12 @@
 					<table class="table table-bordered">
 						<thead>
 							<tr>
-								<td width="5%">No</td>
-								<td width="25%">Nama</td>
-								<td width="10%">NIM</td>
-								<td width="32%">Universitas</td>
-								<td width="18%">Tanggal Pengajuan</td>
-								<td width="10%">Status</td>
+								<th width="5%">No</th>
+								<th width="25%">Nama</th>
+								<th width="10%">NIM</th>
+								<th width="32%">Universitas</th>
+								<th width="18%">Tanggal Pengajuan</th>
+								<th width="10%">Status</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -92,10 +100,10 @@
 						</tbody>
 						<tfoot>
 							<tr>
-								<td colspan="2" align="center">
+								<td colspan="6" align="center">
 									{{-- Showing {{ $pengajuan_magang->firstItem() }} to {{ $pengajuan_magang->lastItem() }} of total {{$pengajuan_magang->total()}} entries --}}
 
-									{{-- {{ $pengajuan_magang->appends(Request::all())->links()}} --}}
+									{{ $pengajuan_magang->appends(Request::all())->links()}}
 								</td>
 							</tr>
 						</tfoot>
@@ -105,3 +113,4 @@
 		</div>
 	</div>
 @endsection
+

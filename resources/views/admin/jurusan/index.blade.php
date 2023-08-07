@@ -7,6 +7,12 @@
 		ul.pagination {
 			justify-content: center;
 		}
+
+		.add-jurusan-button {
+			position: absolute;
+			right: 8px;
+			bottom: 0;
+		}
 	</style>
 @endpush
 
@@ -15,14 +21,15 @@
 
 <div class="card">
 	<div class="card-body">
-		<div class="row ">
-			<div class="col-3">
-				<input type="search" name="search" id="search" class="form-control mb-2" placeholder="Cari jurusan ...">
+		<div class="row">
+			<div class="col-md-3 mb-2">
+				<label>
+					Search:
+				</label>
+				<input type="search" class="form-control" name="job_grading_search" aria-controls="job_grading_table">
 			</div>
-			<div class="col-9">
-				<div class="text-right">
-					<a href="{{ route('admin.jurusan.create') }}" class="btn btn-primary"><i class="fa fa-plus mr-2"></i> Tambah Master Jurusan</a>
-				</div>
+			<div class="col-md-9 text-right mb-2">
+				<a href="{{ route('admin.jurusan.create') }}" class="btn btn-primary add-jurusan-button"><i class="fa fa-plus mr-2"></i> Tambah Jurusan</a>
 			</div>
 			<div class="col-12">
 				<table class="table table-bordered table-hover table-striped">

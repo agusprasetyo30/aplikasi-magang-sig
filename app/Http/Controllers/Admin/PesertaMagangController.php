@@ -20,7 +20,7 @@ class PesertaMagangController extends Controller
         $jumlah_halaman = 5;
         $number = General::numberPagination($jumlah_halaman);
         
-        $peserta_magang = PengajuanMagang::paginate($jumlah_halaman);;
+        $peserta_magang = PengajuanMagang::paginate($jumlah_halaman);
 
         return view('admin.peserta-magang.index', compact('number', 'peserta_magang'));
         

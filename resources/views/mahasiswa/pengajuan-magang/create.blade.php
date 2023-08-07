@@ -53,7 +53,7 @@
 							</div>
 							<div class="form-group">
 								<label for="telepon">Telepon</label>
-								<input type="text" class="form-control" name="telepon" id="telepon" value="{{ $pengajuan_magang->telepon }}" required>
+								<input type="text" class="form-control" name="telepon" id="telepon" value="{{ old('telepon') }}" required>
 							</div>
 							<div class="form-group">
 								<label for="rekomendasi">Rekomendasi <x-optional/></label>
