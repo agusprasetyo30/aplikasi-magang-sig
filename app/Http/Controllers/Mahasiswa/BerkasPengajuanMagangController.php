@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BerkasPengajuanMagang;
 use Auth;
 use Illuminate\Http\Request;
+use Storage;
 use Validator;
 
 class BerkasPengajuanMagangController extends Controller
@@ -86,6 +87,9 @@ class BerkasPengajuanMagangController extends Controller
 
         // Proses uploading
         if ($request->file('surat_pernyataan')) {
+
+            $this->deleteImage($berkas_pengajuan_magang->surat_pernyataan_upload_path);
+
             $upload_data_surat_pernyataan = General::uploadFile($request->file('surat_pernyataan'), 'surat-pernyataan', 'document/surat-pernyataan');
 
             $request->merge(['surat_pernyataan_upload_path' => $upload_data_surat_pernyataan['file_location']]);
@@ -98,6 +102,8 @@ class BerkasPengajuanMagangController extends Controller
         }
         
         if ($request->file('surat_panggilan')) {
+            $this->deleteImage($berkas_pengajuan_magang->surat_panggilan_upload_path);
+
             $upload_data_surat_panggilan = General::uploadFile($request->file('surat_panggilan'), 'surat-panggilan', 'document/surat-panggilan');
 
             $request->merge(['surat_panggilan_upload_path' => $upload_data_surat_panggilan['file_location']]);
@@ -110,6 +116,8 @@ class BerkasPengajuanMagangController extends Controller
         }
         
         if ($request->file('surat_rekomendasi')) {
+            $this->deleteImage($berkas_pengajuan_magang->surat_rekomendasi_upload_path);
+
             $upload_data_surat_rekomendasi = General::uploadFile($request->file('surat_rekomendasi'), 'surat-rekomendasi', 'document/surat-rekomendasi');
 
             $request->merge(['surat_rekomendasi_upload_path' => $upload_data_surat_rekomendasi['file_location']]);
@@ -122,6 +130,8 @@ class BerkasPengajuanMagangController extends Controller
         }
 
         if ($request->file('ktm')) {
+            $this->deleteImage($berkas_pengajuan_magang->ktm_upload_path);
+
             $upload_data_ktm = General::uploadFile($request->file('ktm'), 'ktm', 'document/ktm');
 
             $request->merge(['ktm_upload_path' => $upload_data_ktm['file_location']]);
@@ -134,6 +144,8 @@ class BerkasPengajuanMagangController extends Controller
         }
         
         if ($request->file('surat_sehat')) {
+            $this->deleteImage($berkas_pengajuan_magang->surat_sehat_upload_path);
+            
             $upload_data_surat_sehat = General::uploadFile($request->file('surat_sehat'), 'surat-sehat', 'document/surat-sehat');
 
             $request->merge(['surat_sehat_upload_path' => $upload_data_surat_sehat['file_location']]);
@@ -146,6 +158,8 @@ class BerkasPengajuanMagangController extends Controller
         }
 
         if ($request->file('bpjs')) {
+            $this->deleteImage($berkas_pengajuan_magang->bpjs_upload_path);
+
             $upload_data_bpjs = General::uploadFile($request->file('bpjs'), 'bpjs', 'document/bpjs');
 
             $request->merge(['bpjs_upload_path' => $upload_data_bpjs['file_location']]);
@@ -158,6 +172,8 @@ class BerkasPengajuanMagangController extends Controller
         }
 
         if ($request->file('foto')) {
+            $this->deleteImage($berkas_pengajuan_magang->foto_upload_path);
+
             $upload_data_foto = General::uploadFile($request->file('foto'), 'foto', 'document/foto');
 
             $request->merge(['foto_upload_path' => $upload_data_foto['file_location']]);
@@ -170,6 +186,8 @@ class BerkasPengajuanMagangController extends Controller
         }
 
         if ($request->file('twibbon')) {
+            $this->deleteImage($berkas_pengajuan_magang->twibbon_upload_path);
+
             $upload_data_twibbon = General::uploadFile($request->file('twibbon'), 'twibbon', 'document/twibbon');
 
             $request->merge(['twibbon_upload_path' => $upload_data_twibbon['file_location']]);
@@ -220,5 +238,18 @@ class BerkasPengajuanMagangController extends Controller
         return Validator::make($request->all(), $validation, [
             
         ]);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param [type] $path
+     * @return void
+     */
+    public function deleteImage($path)
+    {
+        if ($path && file_exists(storage_path('app/public/' . $path))) {
+            Storage::delete('public/' . $path);
+        }
     }
 }

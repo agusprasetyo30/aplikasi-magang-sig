@@ -155,9 +155,7 @@ class PengajuanMagangController extends Controller
         $split_nama_anggota = explode(',', $request->nama_semua_anggota);
 
         if ($request->file('cv')) {
-            if ($pengajuan_magang->cv_upload_path && file_exists(storage_path('app/public/' . $pengajuan_magang->cv_upload_path))) {
-                Storage::delete('public/' . $pengajuan_magang->cv_upload_path);
-            }
+            (new BerkasPengajuanMagangController)->deleteImage($pengajuan_magang->cv_upload_path);
 
             $upload_data_cv = General::uploadFile($request->file('cv'), 'cv', 'document/cv');
 
@@ -172,9 +170,7 @@ class PengajuanMagangController extends Controller
         }
 
         if ($request->file('proposal')) {
-            if ($pengajuan_magang->proposal_upload_path && file_exists(storage_path('app/public/' . $pengajuan_magang->proposal_upload_path))) {
-                Storage::delete('public/' . $pengajuan_magang->proposal_upload_path);
-            }
+            (new BerkasPengajuanMagangController)->deleteImage($pengajuan_magang->proposal_upload_path);
 
             $upload_data_proposal = General::uploadFile($request->file('proposal'), 'proposal', 'document/proposal');
             
@@ -189,11 +185,9 @@ class PengajuanMagangController extends Controller
         }
 
         if ($request->file('surat_pengantar')) {
-            if ($pengajuan_magang->surat_pengantar_upload_path && file_exists(storage_path('app/public/' . $pengajuan_magang->surat_pengantar_upload_path))) {
-                Storage::delete('public/' . $pengajuan_magang->proposal_upload_path);
-            }
+            (new BerkasPengajuanMagangController)->deleteImage($pengajuan_magang->surat_pengantar_upload_path);
 
-            $upload_data_surat_pengantar = General::uploadFile($request->file('surat_pengantar'), 'surat_pengantar', 'document/surat_pengantar');
+            $upload_data_surat_pengantar = General::uploadFile($request->file('surat_pengantar'), 'surat-pengantar', 'document/surat-pengantar');
             
             $request->merge(['surat_pengantar_upload_path' => $upload_data_surat_pengantar['file_location']]);
             $request->merge(['surat_pengantar_file_name' => $request->file('surat_pengantar')->getClientOriginalName()]);
