@@ -56,13 +56,14 @@ class PengajuanMagangController extends Controller
         // Upload data dan mengambil data return
         $upload_data_proposal = General::uploadFile($request->file('proposal'), 'proposal', 'document/proposal');
         $upload_data_cv = General::uploadFile($request->file('cv'), 'cv', 'document/cv');
+        $upload_data_surat_pengantar = General::uploadFile($request->file('surat_pengantar'), 'surat_pengantar', 'document/surat_pengantar');
 
         $request->merge(['cv_upload_path' => $upload_data_cv['file_location']]);
-        $request->merge(['cv_origin_filename' => $upload_data_cv['origin_file_save_name']]);
         $request->merge(['cv_file_name' => $request->file('cv')->getClientOriginalName()]);
         $request->merge(['proposal_upload_path' => $upload_data_proposal['file_location']]);
-        $request->merge(['proposal_origin_filename' => $upload_data_proposal['origin_file_save_name']]);
         $request->merge(['proposal_file_name' => $request->file('proposal')->getClientOriginalName()]);
+        $request->merge(['surat_pengantar_upload_path' => $upload_data_surat_pengantar['file_location']]);
+        $request->merge(['surat_pengantar_file_name' => $request->file('surat_pengantar')->getClientOriginalName()]);
 
         PengajuanMagang::create([
             'name'  => $request->name,
@@ -81,11 +82,11 @@ class PengajuanMagangController extends Controller
             'periode_akhir' => Carbon::parse($request->periode_akhir)->format('Y-m-d'),
             'lama_bulan_pelaksanaan' => $request->lama_pelaksanaan,
             'cv_upload_path' => $request->cv_upload_path,
-            'cv_origin_filename' => $request->cv_origin_filename,
             'cv_file_name' => $request->cv_file_name,
             'proposal_upload_path' => $request->proposal_upload_path,
-            'proposal_origin_filename' => $request->proposal_origin_filename,
             'proposal_file_name' => $request->proposal_file_name,
+            'surat_pengantar_upload_path' => $request->surat_pengantar_upload_path,
+            'surat_pengantar_file_name' => $request->surat_pengantar_file_name,
         ]);
 
         // Update fullname di table users
@@ -187,6 +188,23 @@ class PengajuanMagangController extends Controller
             ]);
         }
 
+        if ($request->file('surat_pengantar')) {
+            if ($pengajuan_magang->surat_pengantar_upload_path && file_exists(storage_path('app/public/' . $pengajuan_magang->surat_pengantar_upload_path))) {
+                Storage::delete('public/' . $pengajuan_magang->proposal_upload_path);
+            }
+
+            $upload_data_surat_pengantar = General::uploadFile($request->file('surat_pengantar'), 'surat_pengantar', 'document/surat_pengantar');
+            
+            $request->merge(['surat_pengantar_upload_path' => $upload_data_surat_pengantar['file_location']]);
+            $request->merge(['surat_pengantar_file_name' => $request->file('surat_pengantar')->getClientOriginalName()]);
+
+            // Update proposal jika terdapat upload data
+            $pengajuan_magang->update([
+                'surat_pengantar_upload_path' => $request->surat_pengantar_upload_path,
+                'surat_pengantar_file_name' => $request->surat_pengantar_file_name,
+            ]);
+        }
+
         $pengajuan_magang->update([
             'name'  => $request->name,
             'nim' => $request->nim,
@@ -236,15 +254,17 @@ class PengajuanMagangController extends Controller
     private function checkValidationInput($request, $type = 'store')
     {
         $validation = [
-            'proposal'   => ['required', 'mimes:pdf', 'file', 'max:2048'],
-            'cv'   => ['required', 'mimes:pdf', 'file', 'max:2048'],
+            'proposal'         => ['required', 'mimes:pdf', 'file', 'max:2048'],
+            'cv'               => ['required', 'mimes:pdf', 'file', 'max:2048'],
+            'surat_pengantar'  => ['required', 'mimes:pdf', 'file', 'max:2048'],
         ];
 
         // untuk keperluan update
         if ($type == 'update') {
             $validation = [
-                'proposal'   => ['mimes:pdf', 'file', 'max:2048'],
-                'cv'         => ['mimes:pdf', 'file', 'max:2048'],
+                'proposal'        => ['mimes:pdf', 'file', 'max:2048'],
+                'cv'              => ['mimes:pdf', 'file', 'max:2048'],
+                'surat_pengantar' => ['mimes:pdf', 'file', 'max:2048'],
             ];
         }
 

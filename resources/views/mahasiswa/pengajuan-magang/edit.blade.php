@@ -140,6 +140,18 @@
 								<small>* Max size 2 MB | Format: *pdf | Abaikan jika tidak merubah file</small> <br>
 								<small>File : <a href="{{ asset('storage/' . $pengajuan_magang->proposal_upload_path) }}" target="_blank" title="Klik untuk membuka file">{{ $pengajuan_magang->proposal_file_name }}</a></small>
 							</div>
+							<div class="form-group">
+								<label for="surat_pengantar">Surat Pengantar</label>
+								<input type="file" name="surat_pengantar" id="surat_pengantar" class="form-control h-100 mb-0  @error('surat_pengantar') is-invalid @enderror" accept=".pdf" value="{{ old('surat_pengantar') }}">
+								@error('surat_pengantar')
+									<div class="invalid-feedback">
+										{{ $message }}
+									</div>
+								@enderror
+								<small>* Max size 2 MB | Format: *pdf | Abaikan jika tidak merubah file</small> <br>
+								<small>File : <a href="{{ asset('storage/' . $pengajuan_magang->surat_pengantar_upload_path) }}" target="_blank" title="Klik untuk membuka file">{{ $pengajuan_magang->surat_pengantar_file_name }}</a></small>
+
+							</div>
 						</div>
 					</div>
 					<hr>
