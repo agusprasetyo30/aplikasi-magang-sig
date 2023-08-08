@@ -3,12 +3,6 @@
 @section('title', 'Dashboard')
 
 @section('content')
-	{{-- <div class="row mb-3">
-		<div class="col-6">
-			<h4>Upload Data</h4>
-		</div>
-	</div> --}}
-
 	<div class="row justify-content-center">
 		<div class="col-md-8">	
 			<div class="card card-info">
@@ -18,41 +12,47 @@
 				<div class="card-body">
 					<form action="" method="post" enctype="multipart/form-data">
 						@csrf
-						<div class="form-group">
-							<label for="proposal">Surat Panggilan</label>
-							<input type="file" name="proposal" id="proposal" class="form-control h-100 mb-0" accept=".pdf">
-							<small class="text-danger">* Max size 1 MB | Format: PDF</small> <br>
-							<small>File : <a href="#">Klik untuk membuka file</a></small>
-						</div>
-						<div class="form-group">
-							<label for="proposal">Surat Persetujuan</label>
-							<input type="file" name="proposal" id="proposal" class="form-control h-100 mb-0" accept=".pdf">
-							<small class="text-danger">* Max size 1 MB | Format: PDF</small><br>
-							<small>File : <a href="#">Klik untuk membuka file</a></small>
-						</div>
-						<div class="form-group">
-							<label for="proposal">Lampiran Surat Panggilan</label>
-							<input type="file" name="proposal" id="proposal" class="form-control h-100 mb-0" accept=".pdf">
-							<small class="text-danger">* Max size 1 MB | Format: PDF</small><br>
-							<small>File : <a href="#">Klik untuk membuka file</a></small>
-						</div>
-						<div class="form-group">
-							<label for="proposal">Absensi</label>
-							<input type="file" name="proposal" id="proposal" class="form-control h-100 mb-0" accept=".pdf">
-							<small class="text-danger">* Max size 1 MB | Format: PDF</small><br>
-							<small>File : <a href="#">Klik untuk membuka file</a></small>
-						</div>
-						<div class="form-group">
-							<label for="proposal">ID Card</label>
-							<input type="file" name="proposal" id="proposal" class="form-control h-100 mb-0" accept=".pdf">
-							<small class="text-danger">* Max size 1 MB | Format: PDF</small><br>
-							<small>File : <a href="#">Klik untuk membuka file</a></small>
-						</div>
-						<div class="form-group">
-							<label for="proposal">Form Bimbingan</label>
-							<input type="file" name="proposal" id="proposal" class="form-control h-100 mb-0" accept=".pdf">
-							<small class="text-danger">* Max size 1 MB | Format: PDF</small><br>
-							<small>File : <a href="#">Klik untuk membuka file</a></small>
+						<div class="row">
+							<div class="col-6">
+								<div class="form-group">
+									<label for="proposal">Surat Panggilan</label>
+									<input type="file" name="proposal" id="proposal" class="form-control h-100 mb-0" accept=".pdf">
+									<small class="text-danger">* Max size 1 MB | Format: PDF</small> <br>
+									<small>File : <a href="#">Klik untuk membuka file</a></small>
+								</div>
+								<div class="form-group">
+									<label for="proposal">Surat Persetujuan</label>
+									<input type="file" name="proposal" id="proposal" class="form-control h-100 mb-0" accept=".pdf">
+									<small class="text-danger">* Max size 1 MB | Format: PDF</small><br>
+									<small>File : <a href="#">Klik untuk membuka file</a></small>
+								</div>
+								<div class="form-group">
+									<label for="proposal">Lampiran Surat Panggilan</label>
+									<input type="file" name="proposal" id="proposal" class="form-control h-100 mb-0" accept=".pdf">
+									<small class="text-danger">* Max size 1 MB | Format: PDF</small><br>
+									<small>File : <a href="#">Klik untuk membuka file</a></small>
+								</div>
+							</div>
+							<div class="col-6">
+								<div class="form-group">
+									<label for="proposal">Absensi</label>
+									<input type="file" name="proposal" id="proposal" class="form-control h-100 mb-0" accept=".pdf">
+									<small class="text-danger">* Max size 1 MB | Format: PDF</small><br>
+									<small>File : <a href="#">Klik untuk membuka file</a></small>
+								</div>
+								<div class="form-group">
+									<label for="proposal">ID Card</label>
+									<input type="file" name="proposal" id="proposal" class="form-control h-100 mb-0" accept=".pdf">
+									<small class="text-danger">* Max size 1 MB | Format: PDF</small><br>
+									<small>File : <a href="#">Klik untuk membuka file</a></small>
+								</div>
+								<div class="form-group">
+									<label for="proposal">Form Bimbingan</label>
+									<input type="file" name="proposal" id="proposal" class="form-control h-100 mb-0" accept=".pdf">
+									<small class="text-danger">* Max size 1 MB | Format: PDF</small><br>
+									<small>File : <a href="#">Klik untuk membuka file</a></small>
+								</div>
+							</div>
 						</div>
 						
 						<hr>

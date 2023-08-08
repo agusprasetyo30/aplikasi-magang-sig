@@ -63,6 +63,7 @@ Route::group([
         Route::prefix('peserta-magang')->as('peserta-magang.')->group(function() {
             Route::get('/{id}/upload-data', [PesertaMagangController::class, 'uploadDataView'])->name('upload-data-view');
             Route::put('/{id}/upload-data', [PesertaMagangController::class, 'uploadData'])->name('upload-data');
+            Route::put('/{id}/approval-type/{type}', [PesertaMagangController::class, 'approvalRejectPesertaMagang'])->name('approval');
         });
 
         Route::resource('jurusan', JurusanController::class);

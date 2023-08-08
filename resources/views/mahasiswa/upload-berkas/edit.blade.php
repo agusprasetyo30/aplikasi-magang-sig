@@ -3,12 +3,6 @@
 @section('title', 'Edit Berkas Pengajuan Magang')
 
 @section('content')
-	{{-- <div class="row mb-3">
-		<div class="col-6">
-			<h4>Upload Berkas Mahasiswa</h4>
-		</div>
-	</div> --}}
-
 	<div class="row justify-content-center">
 		<div class="col-md-10">	
 			<div class="card card-info">
@@ -56,7 +50,7 @@
 									</small>
 								</div>
 								<div class="form-group">
-									<label for="surat_rekomendasi">Upload Surat Rekomendasi Instansi</label>
+									<label for="surat_rekomendasi">Upload Surat Persetujuan yang sudah di Tanda Tangan</label>
 									<input type="file" name="surat_rekomendasi" id="surat_rekomendasi" class="form-control h-100 mb-0 @error('surat_rekomendasi') is-invalid @enderror" accept=".pdf" >
 									@error('surat_rekomendasi')
 										<div class="invalid-feedback">
@@ -110,7 +104,7 @@
 										</small>
 									</div>
 									<div class="form-group">
-										<label for="bpjs">Upload BPJS</label>
+										<label for="bpjs">Upload Asuransi Kecelakaan Kerja</label>
 										<input type="file" name="bpjs" id="bpjs" class="form-control h-100 mb-0 @error('bpjs') is-invalid @enderror" accept=".pdf" >
 										@error('bpjs')
 											<div class="invalid-feedback">

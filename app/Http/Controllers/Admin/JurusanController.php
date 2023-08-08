@@ -20,10 +20,10 @@ class JurusanController extends Controller
         $jumlah_halaman = 5;
         $number = General::numberPagination($jumlah_halaman);
         
-        $jurusan = Jurusan::query();
+        $jurusan = Jurusan::paginate($jumlah_halaman);
 
         if ($request->get('jurusan_name')) {
-            $jurusan = $jurusan->where('name', 'like', '%' . $request->get('jurusan_name') . '%')->paginate($jumlah_halaman);
+            $jurusan = Jurusan::where('name', 'like', '%' . $request->get('jurusan_name') . '%')->paginate($jumlah_halaman);
         }
 
         return view('admin.jurusan.index', compact('number', 'jurusan'));

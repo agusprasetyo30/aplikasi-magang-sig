@@ -37,7 +37,7 @@
 							</div>
 							<div class="form-group">
 								<label for="jurusan">Jurusan</label>
-								<select name="jurusan" id="jurusan" class="select2 w-100" data-jurusan-select2="{{ route('select2.jurusan') }}"  required>
+								<select name="jurusan" id="jurusan" class="select2 w-100" data-jurusan-select2="{{ route('select2.jurusan', ['kuota' => 1]) }}"  required>
 								</select>
 							</div>
 							<div class="form-group">

@@ -10,7 +10,8 @@ class Select2Controller extends Controller
     public function jurusanSelect2(Request $request)
     {
         $term = $request->q;
-
+    
+        // default
         if (empty($term)) {
             $data_jurusan = Jurusan::orderBy('name', 'asc')
                 ->get();
@@ -18,6 +19,21 @@ class Select2Controller extends Controller
             $data_jurusan = Jurusan::where('name', 'like', '%' . $term . '%')
                 ->orderBy('name', 'asc')
                 ->get();
+        }
+
+        // Digunakan hanya untuk mennampilkan jurusan yang memiliki/terdapat relasi kuota magang
+        // ini dieksekusi jika menginginkan data list jurusan yang terdapat relasi pada kuota magang
+        if ($request->get('kuota')) {
+            if (empty($term)) {
+                $data_jurusan = Jurusan::whereHas('kuotaMagang')
+                    ->orderBy('name', 'asc')
+                    ->get();
+            } else {
+                $data_jurusan = Jurusan::whereHas('kuotaMagang')
+                    ->where('name', 'like', '%' . $term . '%')
+                    ->orderBy('name', 'asc')
+                    ->get();
+            }
         }
 
         $formatted_units = [];

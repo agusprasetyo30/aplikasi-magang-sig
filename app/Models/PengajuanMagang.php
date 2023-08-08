@@ -34,6 +34,7 @@ class PengajuanMagang extends Model
         'cv_file_name',
         'proposal_upload_path',
         'proposal_file_name',
+        'status'
     ];
 
     public function jurusan()

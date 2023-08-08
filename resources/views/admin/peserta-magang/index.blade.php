@@ -64,20 +64,30 @@
 								<td>
 									@switch($value->status)
 										@case(0)
-											<a href="#" class="btn btn-success btn-sm btn-block text-left"><i class="fa fa-check mr-2"></i> Disetujui</a>
-											<a href="#" class="btn btn-danger btn-sm btn-block text-left"><i class="fa fa-times mr-2"></i> Ditolak</a>
+											<form action="{{ route('admin.peserta-magang.approval', ['id' => $value->id, 'type' => 'approve']) }}" method="post">
+												@method('put')
+												@csrf
+												<button class="btn btn-success btn-sm btn-block text-left mb-1" type="submit" onclick="return confirm('Apakah anda yakin menyetujui pengajuan ini ?')"><i class="fa fa-check mr-2"></i>Disetujui</button>
+											</form>
+
+											<form action="{{ route('admin.peserta-magang.approval', ['id' => $value->id, 'type' => 'reject']) }}" method="post">
+												@csrf
+												@method('put')
+												<button class="btn btn-danger btn-sm btn-block text-left mb-1" type="submit" onclick="return confirm('Apakah anda yakin menolak pengajuan ini ?')"><i class="fa fa-times mr-2"></i>Ditolak</button>
+											</form>
+											
 											@break
 
 										@case(1)
-											<a href="{{ route('admin.peserta-magang.upload-data-view', 1) }}" class="btn btn-primary btn-sm btn-block text-left"><i class="fa fa-upload mr-2"></i> Upload Data</a>
-											<a href="{{ route('admin.peserta-magang.show', 1) }}" class="btn btn-info btn-sm btn-block text-left"><i class="fa fa-list mr-2"></i> Details</a>
+											<a href="{{ route('admin.peserta-magang.upload-data-view', $value->id ) }}" class="btn btn-primary btn-sm btn-block text-left"><i class="fa fa-upload mr-2"></i> Upload Data</a>
 											@break
 
 										@case(2)
-											<a href="{{ route('admin.peserta-magang.show', 1) }}" class="btn btn-info btn-sm btn-block text-left"><i class="fa fa-list mr-2"></i> Details</a>
+											<a href="#" class="btn btn-danger btn-sm btn-block text-left"><i class="fa fa-trash mr-2"></i> Hapus</a>
 											@break											
 									@endswitch
-									<a href="#" class="btn btn-danger btn-sm btn-block text-left"><i class="fa fa-trash mr-2"></i> Hapus</a>
+
+										<a href="{{ route('admin.peserta-magang.show', $value->id) }}" class="btn btn-info btn-sm btn-block text-left"><i class="fa fa-list mr-2"></i> Details</a>
 								</td>
 							</tr>
 						@endforeach
@@ -104,7 +114,6 @@
 @push('js')
 	<script>
 		$('a.test').click(function() {
-			console.log('aa');
 			toastr.success('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
 		});
 	</script>
