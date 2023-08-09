@@ -5,9 +5,9 @@
 			<div class="widget_menu">
 				<h3>PT Semen Indonesia (Persero) Tbk</h3>
 			</div>
-			{{-- <div class="logo_footer">
-				<a href="#"><img width="210" src="{{ asset('vendor/images/logo.png') }}" alt="#" /></a>
-			</div> --}}
+			<div class="logo_footer">
+				<a href="#"><img width="80" src="{{ asset('img/sig-logo.png') }}" alt="#" /></a>
+			</div>
 			<div class="information_f">
 				<ul class="pl-4">
 					<li>Jl. R.A Kartini Kav.8 Cilandak Barat, Jakarta Selatan DKI Jakarta, 12430</li>
@@ -25,11 +25,25 @@
 						<div class="widget_menu">
 							<h3>Menu</h3>
 							<ul>
-							<li><a href="#">Beranda</a></li>
-							<li><a href="#">Tentang SIG</a></li>
-							<li><a href="#">Kuota Magang</a></li>
-							<li><a href="#">Pusat Informasi</a></li>
-							<li><a href="#">Login</a></li>
+							@auth
+								@can('mahasiswa')
+									<li><a href="{{ route('mahasiswa.dashboard.index') }}">Dashboard</a></li>
+									<li><a href="{{ route('mahasiswa.pengajuan-magang.index') }}">Pengajuan Magang</a></li>
+									<li><a href="{{ route('mahasiswa.upload-berkas.index') }}">Upload Berkas</a></li>
+								@elsecan('admin')
+									<li><a href="{{ route('admin.dashboard.index') }}">Dashboard</a></li>
+									<li><a href="{{ route('admin.kelola-kuota.index') }}">Kelola Kuota</a></li>
+									<li><a href="{{ route('admin.peserta-magang.index') }}">Peserta Magang</a></li>
+									<li><a href="{{ route('admin.jurusan.index') }}">Jurusan</a></li>
+									<li><a href="{{ route('admin.user-management.index') }}">User Management</a></li>
+								@endcan
+							@else
+								<li><a href="{{ route('dashboard') }}">Beranda</a></li>
+								<li><a href="{{ route('tentang-sig.index') }}">Tentang SIG</a></li>
+								<li><a href="{{ route('kuota-magang.index') }}">Kuota Magang</a></li>
+								<li><a href="{{ route('pusat-informasi.index') }}">Pusat Informasi</a></li>
+							@endauth
+							
 							</ul>
 						</div>
 					</div>

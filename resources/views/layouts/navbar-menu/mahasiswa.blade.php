@@ -7,7 +7,7 @@
 @if (Auth::user()->pengajuanMagang)
 	@if (Auth::user()->pengajuanMagang->status == 1)
 	<li class="nav-item @if (Request::is('mahasiswa/upload-berkas*')) active @endif">
-		<a class="nav-link" href="{{ route('mahasiswa.upload-berkas.index') }}">upload Berkas</a>
+		<a class="nav-link" href="{{ route('mahasiswa.upload-berkas.index') }}">Upload Berkas</a>
 	</li>
 	@endif
 @endif

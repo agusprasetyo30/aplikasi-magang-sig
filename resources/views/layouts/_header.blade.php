@@ -1,6 +1,16 @@
 <div class="container">
 	<nav class="navbar navbar-expand-lg custom_nav-container ">
-		<a class="navbar-brand" href="index.html"><img width="250" src="{{ asset('vendor/images/logo.png') }}" alt="#" /></a>
+		@auth
+			@can('mahasiswa')
+				<a class="navbar-brand" href="{{ route('mahasiswa.dashboard.index') }}"><img width="80" src="{{ asset('img/sig-logo.png') }}" alt="#" /></a>
+			@elsecan('admin')
+				<a class="navbar-brand" href="{{ route('admin.dashboard.index') }}"><img width="80" src="{{ asset('img/sig-logo.png') }}" alt="#" /></a>
+			@endcan
+
+		@else
+			<a class="navbar-brand" href="{{ route('dashboard') }}"><img width="80" src="{{ asset('img/sig-logo.png') }}" alt="#" /></a>
+		@endauth
+
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class=""> </span>
 		</button>
