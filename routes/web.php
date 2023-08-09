@@ -42,10 +42,18 @@ Route::group([
     'middleware' => ['auth', 'can:mahasiswa'],
     'as'         => 'mahasiswa.'], function() {
 
-    Route::get('/', [MahasiswaDashboardController::class, 'index'])->name('dashboard.index');
-    Route::get('/download-berkas-magang', [MahasiswaDashboardController::class, 'downloadBerkasMagang'])->name('dashboard.download-berkas-magang');
-    Route::put('/upload-photo', [MahasiswaDashboardController::class, 'uploadPhoto'])->name('dashboard.upload-photo');
-    
+    Route::group([
+        'as'         => 'dashboard.',
+        'controller' => MahasiswaDashboardController::class], function() {
+
+        Route::get('/', 'index')->name('index');
+        Route::put('/upload-photo', 'uploadPhoto')->name('upload-photo');
+        
+        Route::get('/download-berkas-magang', 'downloadBerkasMagang')->name('download-berkas-magang');
+        Route::get('/{type}/download','downloadFile')->name('download-file');
+    });
+
+
     Route::resource('pengajuan-magang', PengajuanMagangController::class);
     Route::resource('upload-berkas', BerkasPengajuanMagangController::class);
 });

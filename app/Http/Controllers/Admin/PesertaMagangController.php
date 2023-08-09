@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Helpers\General;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Mahasiswa\BerkasPengajuanMagangController;
 use App\Models\BerkasPengajuanMagang;
+use App\Models\BerkasPesertaMagang;
 use App\Models\PengajuanMagang;
+use Auth;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
+use Validator;
 
 class PesertaMagangController extends Controller
 {
@@ -166,6 +170,10 @@ class PesertaMagangController extends Controller
                     BerkasPengajuanMagang::create([
                         'pengajuan_magang_id' => $id
                     ]);
+                    
+                    BerkasPesertaMagang::create([
+                        'pengajuan_magang_id' => $id
+                    ]);
 
                     break;
 
@@ -193,12 +201,21 @@ class PesertaMagangController extends Controller
                 ->with('alert_type', 'success')
                 ->with('message', $e->getMessage());
         }
-        // dd($type, $id, $status_approval, $peserta_magang);
     }
 
     public function uploadDataView(Request $request, $id)
     {
-        return view('admin.peserta-magang.upload_data');
+        $berkas_peserta_magang = PengajuanMagang::where('id', $id)->first();
+
+        if (is_null($berkas_peserta_magang)) {
+            abort(404);
+        }
+        
+        return view('admin.peserta-magang.upload_data', [
+            'peserta_magang'        => $berkas_peserta_magang,
+            'berkas_peserta_magang' => $berkas_peserta_magang->berkasPesertaMagang,
+            'upload_by'       => json_decode($berkas_peserta_magang->berkasPesertaMagang->upload_by)
+        ]);
     }
 
     /**
@@ -209,8 +226,138 @@ class PesertaMagangController extends Controller
      */
     public function uploadData(Request $request, $id)
     {
+        $validation_input = $this->checkValidationInput($request);
 
+        if ($validation_input->fails()) {
+            return redirect()->back()->withErrors($validation_input)->withInput();
+        }
+
+        $berkas_peserta_magang = BerkasPesertaMagang::where('pengajuan_magang_id', $id)->first();
+
+        // Proses uploading
+        if ($request->file('surat_panggilan')) {
+
+            (new BerkasPengajuanMagangController)->deleteImage($berkas_peserta_magang->surat_panggilan_upload_path);
+
+            $upload_data_surat_panggilan = General::uploadFile($request->file('surat_panggilan'), 'surat-panggilan', 'document/surat-panggilan');
+
+            $request->merge(['surat_panggilan_upload_path' => $upload_data_surat_panggilan['file_location']]);
+            $request->merge(['surat_panggilan_file_name' => $request->file('surat_panggilan')->getClientOriginalName()]);
+
+            $berkas_peserta_magang->update([
+                'surat_panggilan_upload_path' => $request->surat_panggilan_upload_path,
+                'surat_panggilan_file_name'   => $request->surat_panggilan_file_name
+            ]);
+        }
+
+        // Absensi
+        if ($request->file('absensi')) {
+            (new BerkasPengajuanMagangController)->deleteImage($berkas_peserta_magang->absensi_upload_path);
+
+            $upload_data_absensi = General::uploadFile($request->file('absensi'), 'absensi', 'document/absensi');
+
+            $request->merge(['absensi_upload_path' => $upload_data_absensi['file_location']]);
+            $request->merge(['absensi_file_name' => $request->file('absensi')->getClientOriginalName()]);
+
+            $berkas_peserta_magang->update([
+                'absensi_upload_path' => $request->absensi_upload_path,
+                'absensi_file_name'   => $request->absensi_file_name
+            ]);
+        }
+
+        // Surat Persetujuan
+        if ($request->file('surat_persetujuan')) {
+            (new BerkasPengajuanMagangController)->deleteImage($berkas_peserta_magang->surat_persetujuan_upload_path);
+
+            $surat_persetujuan = General::uploadFile($request->file('surat_persetujuan'), 'surat-persetujuan', 'document/surat-persetujuan');
+
+            $request->merge(['surat_persetujuan_upload_path' => $surat_persetujuan['file_location']]);
+            $request->merge(['surat_persetujuan_file_name' => $request->file('surat_persetujuan')->getClientOriginalName()]);
+
+            $berkas_peserta_magang->update([
+                'surat_persetujuan_upload_path' => $request->surat_persetujuan_upload_path,
+                'surat_persetujuan_file_name'   => $request->surat_persetujuan_file_name
+            ]);
+        }
+
+        // Lampiran Surat Persetujuan
+        if ($request->file('lampiran_surat_persetujuan')) {
+            (new BerkasPengajuanMagangController)->deleteImage($berkas_peserta_magang->lampiran_surat_persetujuan_upload_path);
+
+            $lampiran_surat_persetujuan = General::uploadFile($request->file('lampiran_surat_persetujuan'), 'lampiran-surat-persetujuan', 'document/lampiran-surat-persetujuan');
+
+            $request->merge(['lampiran_surat_persetujuan_upload_path' => $lampiran_surat_persetujuan['file_location']]);
+            $request->merge(['lampiran_surat_persetujuan_file_name' => $request->file('lampiran_surat_persetujuan')->getClientOriginalName()]);
+
+            $berkas_peserta_magang->update([
+                'lampiran_surat_persetujuan_upload_path' => $request->lampiran_surat_persetujuan_upload_path,
+                'lampiran_surat_persetujuan_file_name'   => $request->lampiran_surat_persetujuan_file_name
+            ]);
+        }
+
+        // ID Card
+        if ($request->file('id_card')) {
+            (new BerkasPengajuanMagangController)->deleteImage($berkas_peserta_magang->id_card_upload_path);
+
+            $id_card = General::uploadFile($request->file('id_card'), 'id-card', 'document/id-card');
+
+            $request->merge(['id_card_upload_path' => $id_card['file_location']]);
+            $request->merge(['id_card_file_name' => $request->file('id_card')->getClientOriginalName()]);
+
+            $berkas_peserta_magang->update([
+                'id_card_upload_path' => $request->id_card_upload_path,
+                'id_card_file_name'   => $request->id_card_file_name
+            ]);
+        }
+
+        // ID Card
+        if ($request->file('form_bimbingan')) {
+            (new BerkasPengajuanMagangController)->deleteImage($berkas_peserta_magang->form_bimbingan_upload_path);
+
+            $id_card = General::uploadFile($request->file('form_bimbingan'), 'form-bimbingan', 'document/form_bimbingan');
+
+            $request->merge(['form_bimbingan_upload_path' => $id_card['file_location']]);
+            $request->merge(['form_bimbingan_file_name' => $request->file('form_bimbingan')->getClientOriginalName()]);
+
+            $berkas_peserta_magang->update([
+                'form_bimbingan_upload_path' => $request->form_bimbingan_upload_path,
+                'form_bimbingan_file_name'   => $request->form_bimbingan_file_name
+            ]);
+        }
+
+        // memasukan data admin untuk identifikasi perubahan
+        $admin_arr = [
+            'name' => Auth::user()->fullname,
+            'email' => Auth::user()->email,
+            'datetime' => now()->format('d F Y H:i')
+        ];
+
+        $berkas_peserta_magang->update([
+            'upload_by' => json_encode($admin_arr)
+        ]);
+
+        return redirect()
+            ->route('admin.peserta-magang.upload-data-view', $berkas_peserta_magang->pengajuan_magang_id)
+            ->with('alert_type', 'success')
+            ->with('message', 'Data berkas berhasil diupload');
     }
 
+/**
+     * Validation for checking input in form
+     *
+     * @param [type] $request
+     * @return object
+     */
+    private function checkValidationInput($request)
+    {
+        $validation = [
+            'proposal'        => ['mimes:pdf', 'file', 'max:2048'],
+            'cv'              => ['mimes:pdf', 'file', 'max:2048'],
+            'surat_pengantar' => ['mimes:pdf', 'file', 'max:2048'],
+        ];
 
+        return Validator::make($request->all(), $validation, [
+            
+        ]);
+    }
 }

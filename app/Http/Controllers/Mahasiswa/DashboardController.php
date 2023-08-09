@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Mahasiswa;
 
 use App\Helpers\General;
 use App\Http\Controllers\Controller;
+use App\Models\BerkasPesertaMagang;
 use App\Models\PengajuanMagang;
 use App\Models\User;
 use Auth;
@@ -31,7 +32,9 @@ class DashboardController extends Controller
 
     public function downloadBerkasMagang()
     {
-        return view('mahasiswa.dashboard.download_berkas');
+        return view('mahasiswa.dashboard.download_berkas', [
+            'berkas_peserta_magang' => Auth::user()->pengajuanMagang->berkasPesertaMagang
+        ]);
     }
 
     /**
@@ -59,5 +62,55 @@ class DashboardController extends Controller
             ->route('mahasiswa.dashboard.index')
             ->with('alert_type', 'success')
             ->with('message', 'Update foto success');
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @param PengajuanMagang $pengajuan_magang
+     * @param [type] $type
+     * @return void
+     */
+    public function downloadFile($type)
+    {
+        $berkas_peserta_magang = BerkasPesertaMagang::where('pengajuan_magang_id', Auth::user()->pengajuanMagang->id)->first();
+        $path = '';
+
+        switch ($type) {
+            case 'surat-panggilan':
+                $path = $berkas_peserta_magang->surat_panggilan_upload_path;
+                break;
+
+            case 'absensi':
+                $path = $berkas_peserta_magang->absensi_upload_path;
+                break;
+
+            case 'surat-persetujuan':
+                $path = $berkas_peserta_magang->surat_persetujuan_upload_path;
+                break;
+
+            case 'lampiran-surat-panggilan':
+                $path = $berkas_peserta_magang->lampiran_surat_panggilan_upload_path;
+                break;
+
+            case 'id-card':
+                $path = $berkas_peserta_magang->id_card_upload_path;
+                break;
+
+            case 'form-bimbingan':
+                $path = $berkas_peserta_magang->form_bimbingan_upload_path;
+                break;
+            
+            default:
+                return abort(404);
+                break;
+        }
+
+        // dd($berkas_peserta_magang, $type);
+        // return response()->download(storage_path('document/surat-panggilan/surat-panggilan1691563115.pdf'));
+        return Storage::download('public/' . $path);
+        // return Storage::disk('public')->download(asset('storage/document/surat-panggilan/surat-panggilan1691563115.pdf'));
+        // return response()->download(storage_path('document/surat-panggilan/surat-panggilan1691563115.pdf'));
     }
 }

@@ -20,14 +20,14 @@ namespace App\Models{
  * @property string|null $surat_pernyataan_file_name
  * @property string|null $surat_panggilan_upload_path
  * @property string|null $surat_panggilan_file_name
- * @property string|null $surat_rekomendasi_upload_path
- * @property string|null $surat_rekomendasi_file_name
+ * @property string|null $surat_rekomendasi_upload_path untuk kolom ini diganti (Upload Surat Persetujuan yang sudah di Tanda Tangan)
+ * @property string|null $surat_rekomendasi_file_name untuk kolom ini diganti (Upload Surat Persetujuan yang sudah di Tanda Tangan)
  * @property string|null $ktm_upload_path
  * @property string|null $ktm_file_name
  * @property string|null $surat_sehat_upload_path
  * @property string|null $surat_sehat_file_name
- * @property string|null $bpjs_upload_path
- * @property string|null $bpjs_file_name
+ * @property string|null $bpjs_upload_path untuk kolom ini diganti (Upload Asuransi Kecelakaan Kerja)
+ * @property string|null $bpjs_file_name untuk kolom ini diganti (Upload Asuransi Kecelakaan Kerja)
  * @property string|null $foto_upload_path
  * @property string|null $foto_file_name
  * @property string|null $twibbon_upload_path
@@ -65,6 +65,21 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|BerkasPengajuanMagang withoutTrashed()
  */
 	class BerkasPengajuanMagang extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\BerkasPesertaMagang
+ *
+ * @property-read \App\Models\PengajuanMagang $pengajuanMagang
+ * @method static \Illuminate\Database\Eloquent\Builder|BerkasPesertaMagang newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|BerkasPesertaMagang newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|BerkasPesertaMagang onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|BerkasPesertaMagang query()
+ * @method static \Illuminate\Database\Eloquent\Builder|BerkasPesertaMagang withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|BerkasPesertaMagang withoutTrashed()
+ */
+	class BerkasPesertaMagang extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -108,6 +123,7 @@ namespace App\Models\Master{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\KuotaMagang|null $kuotaMagang
  * @property-read \App\Models\PengajuanMagang|null $pengajuanMagang
  * @method static \Illuminate\Database\Eloquent\Builder|Jurusan newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Jurusan newQuery()
@@ -149,6 +165,8 @@ namespace App\Models{
  * @property string|null $cv_file_name
  * @property string|null $proposal_upload_path
  * @property string|null $proposal_file_name
+ * @property string|null $surat_pengantar_upload_path
+ * @property string|null $surat_pengantar_file_name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -180,6 +198,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|PengajuanMagang whereProposalUploadPath($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PengajuanMagang whereRekomendasi($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PengajuanMagang whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PengajuanMagang whereSuratPengantarFileName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PengajuanMagang whereSuratPengantarUploadPath($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PengajuanMagang whereTelepon($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PengajuanMagang whereTujuan($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PengajuanMagang whereUpdatedAt($value)
@@ -204,6 +224,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string $role
  * @property string|null $photo_upload_path
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \App\Models\PengajuanMagang|null $pengajuanMagang
@@ -212,8 +233,10 @@ namespace App\Models{
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereFullname($value)
@@ -223,6 +246,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|User withoutTrashed()
  */
 	class User extends \Eloquent {}
 }

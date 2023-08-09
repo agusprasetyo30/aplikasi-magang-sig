@@ -53,4 +53,9 @@ class PengajuanMagang extends Model
     {
         return $this->hasOne(BerkasPengajuanMagang::class);
     }
+
+    public function berkasPesertaMagang()
+    {
+        return $this->hasOne(BerkasPesertaMagang::class);
+    }
 }
