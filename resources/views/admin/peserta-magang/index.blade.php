@@ -2,6 +2,14 @@
 
 @section('title', 'Dashboard')
 
+@push('css')
+	<style>
+		ul.pagination {
+			justify-content: center;
+		}
+	</style>
+@endpush
+
 @section('content')
 	<div class="row mb-3">
 		<div class="col-6">

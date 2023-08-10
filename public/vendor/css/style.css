@@ -36,7 +36,7 @@ body {
 
 h1,
 h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: Playfair Display, 'serif';
 }
 
 .heading_container {
@@ -272,7 +272,7 @@ a:focus {
 }
 
 .slider_section .detail-box h1 {
-    font-size: 4.5rem;
+    font-size: 3.5rem;
     font-weight: bold;
     margin-bottom: 15px;
     color: #002c3e;
@@ -280,7 +280,7 @@ a:focus {
 }
 
 .slider_section .detail-box h1 span {
-  color: #f7444e;
+  color: #ffffff;
 }
 
 .slider_section .detail-box p {

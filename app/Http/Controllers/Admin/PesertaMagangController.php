@@ -26,7 +26,7 @@ class PesertaMagangController extends Controller
         $jumlah_halaman = 5;
         $number = General::numberPagination($jumlah_halaman);
         
-        $peserta_magang = PengajuanMagang::paginate($jumlah_halaman);
+        $peserta_magang = PengajuanMagang::orderBy('created_at', 'desc')->paginate($jumlah_halaman);
         
         if (!is_null($request->search)) {
             // Pencarian nama, jurusan/prodi, dan universitas/instansi
@@ -280,18 +280,18 @@ class PesertaMagangController extends Controller
             ]);
         }
 
-        // Lampiran Surat Persetujuan
-        if ($request->file('lampiran_surat_persetujuan')) {
-            (new BerkasPengajuanMagangController)->deleteImage($berkas_peserta_magang->lampiran_surat_persetujuan_upload_path);
+        // Lampiran Surat Panggilan
+        if ($request->file('lampiran_surat_panggilan')) {
+            (new BerkasPengajuanMagangController)->deleteImage($berkas_peserta_magang->lampiran_surat_panggilan_upload_path);
 
-            $lampiran_surat_persetujuan = General::uploadFile($request->file('lampiran_surat_persetujuan'), 'lampiran-surat-persetujuan', 'document/lampiran-surat-persetujuan');
+            $lampiran_surat_panggilan = General::uploadFile($request->file('lampiran_surat_panggilan'), 'lampiran-surat-panggilan', 'document/lampiran-surat-panggilan');
 
-            $request->merge(['lampiran_surat_persetujuan_upload_path' => $lampiran_surat_persetujuan['file_location']]);
-            $request->merge(['lampiran_surat_persetujuan_file_name' => $request->file('lampiran_surat_persetujuan')->getClientOriginalName()]);
+            $request->merge(['lampiran_surat_panggilan_upload_path' => $lampiran_surat_panggilan['file_location']]);
+            $request->merge(['lampiran_surat_panggilan_file_name' => $request->file('lampiran_surat_panggilan')->getClientOriginalName()]);
 
             $berkas_peserta_magang->update([
-                'lampiran_surat_persetujuan_upload_path' => $request->lampiran_surat_persetujuan_upload_path,
-                'lampiran_surat_persetujuan_file_name'   => $request->lampiran_surat_persetujuan_file_name
+                'lampiran_surat_panggilan_upload_path' => $request->lampiran_surat_panggilan_upload_path,
+                'lampiran_surat_panggilan_file_name'   => $request->lampiran_surat_panggilan_file_name
             ]);
         }
 

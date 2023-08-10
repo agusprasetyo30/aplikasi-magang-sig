@@ -9,8 +9,6 @@
 @endpush
 
 @section('content')
-	{{-- <h3 class="mb-3"><span>Pengajuan Pagang</span></h3> --}}
-	
 <div class="row justify-content-center">
 	<div class="col-md-12">	
 		<div class="card card-info">
