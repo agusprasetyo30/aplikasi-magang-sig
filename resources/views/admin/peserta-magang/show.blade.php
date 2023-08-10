@@ -124,6 +124,13 @@
 							<a href="{{ asset('storage/' . $peserta_magang->cv_upload_path) }}" title="Klik untuk membuka file" target="_blank">{{ $peserta_magang->cv_file_name }}</a>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-md-3 font-weight-bolder">Surat Pengantar</div>
+						<div class="col-md-1 text-right">:</div>
+						<div class="col-md-8">
+							<a href="{{ asset('storage/' . $peserta_magang->surat_pengantar_upload_path) }}" title="Klik untuk membuka file" target="_blank">{{ $peserta_magang->surat_pengantar_file_name }}</a>
+						</div>
+					</div>
 					
 
 					@if ($status_berkas_pengajuan_magang)

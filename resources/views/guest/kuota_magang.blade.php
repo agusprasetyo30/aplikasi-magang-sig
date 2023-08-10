@@ -24,8 +24,9 @@
 				<thead>
 					<tr>
 						<th width="5%">No</th>
-						<th width="45%">Jurusan / Program Studi</th>
-						<th width="25%">Bulan Pelaksanaan</th>
+						<th width="35%">Jurusan / Program Studi</th>
+						<th width="15%">Jenjang</th>
+						<th width="20%">Bulan Pelaksanaan</th>
 						<th width="25%">Sisa Kuota</th>
 					</tr>
 				</thead>
@@ -34,6 +35,7 @@
 						<tr>
 							<td>{{ $number++ }}. </td>
 							<td>{{ $value->jurusan->name }}</td>
+							<td>{{ $value->jenjang_pendidikan == 'SMA' ? 'SMA / SMK' : $value->jenjang_pendidikan }}</td>
 							<td>{{ \App\Helpers\General::generateBulan($value->bulan_pelaksanaan) }}</td>
 							<td>{{ $value->kuota }}</td>
 						</tr>

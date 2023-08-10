@@ -10,8 +10,8 @@
 		<meta name="keywords" content="" />
 		<meta name="description" content="" />
 		<meta name="author" content="" />
-		<link rel="shortcut icon" href="{{ asset('vendor/images/favicon.png') }}" type="">
-		<title>@yield('title')</title>
+		<link rel="shortcut icon" href="{{ asset('img/sig-logo.png') }}" type="">
+		<title>Dashboard</title>
 		<!-- bootstrap core css -->
 		<link rel="stylesheet" type="text/css" href="{{ asset('vendor/css/bootstrap.css') }}" />
 		<!-- font awesome style -->

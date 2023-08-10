@@ -83,7 +83,7 @@
 							<div class="form-group">
 								<label>Periode Awal Kerja Praktek</label>
 								<div class="input-group date">
-									<input type="text" class="form-control periode-awal" placeholder="dd-mm-yyyy" name="periode_awal" required value="{{ old('periode_awal') }}" autocomplete=false>
+									<input type="text" class="form-control periode-awal" placeholder="dd-mm-yyyy" name="periode_awal" required value="{{ old('periode_awal') }}" autocomplete="off">
 									<div class="input-group-text">
 										<span class="fa fa-calendar"></span>
 									</div>
@@ -92,7 +92,7 @@
 							<div class="form-group">
 								<label>Periode Akhir Kerja Praktek</label>
 								<div class="input-group date">
-									<input type="text" class="form-control periode-akhir" placeholder="dd-mm-yyyy" name="periode_akhir" required value="{{ old('periode_akhir') }}" autocomplete=false>
+									<input type="text" class="form-control periode-akhir" placeholder="dd-mm-yyyy" name="periode_akhir" required value="{{ old('periode_akhir') }}" autocomplete="off">
 									<div class="input-group-text">
 										<span class="fa fa-calendar"></span>
 									</div>

@@ -62,8 +62,10 @@ class BerkasPengajuanMagangController extends Controller
      */
     public function edit($id)
     {
+        // dd($id);
         $berkas_pengajuan_magang = BerkasPengajuanMagang::where('pengajuan_magang_id', $id)->first();
         
+        // dd($berkas_pengajuan_magang, $id);
         return view('mahasiswa.upload-berkas.edit', compact('berkas_pengajuan_magang'));
     }
 
@@ -76,7 +78,7 @@ class BerkasPengajuanMagangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $berkas_pengajuan_magang = BerkasPengajuanMagang::where('pengajuan_magang_id', $id)->first();
+        $berkas_pengajuan_magang = BerkasPengajuanMagang::where('id', $id)->first();
 
         // Validasi
         $validation_input = $this->checkValidationInput($request);
@@ -85,10 +87,13 @@ class BerkasPengajuanMagangController extends Controller
             return redirect()->back()->withErrors($validation_input)->withInput();
         }
 
+        // dd($berkas_pengajuan_magang);
+
         // Proses uploading
         if ($request->file('surat_pernyataan')) {
-
-            $this->deleteImage($berkas_pengajuan_magang->surat_pernyataan_upload_path);
+            if (!is_null($berkas_pengajuan_magang->surat_pernyataan_upload_path)) {
+                $this->deleteImage($berkas_pengajuan_magang->surat_pernyataan_upload_path);
+            }
 
             $upload_data_surat_pernyataan = General::uploadFile($request->file('surat_pernyataan'), 'surat-pernyataan', 'document/surat-pernyataan');
 
@@ -102,7 +107,9 @@ class BerkasPengajuanMagangController extends Controller
         }
         
         if ($request->file('surat_panggilan')) {
-            $this->deleteImage($berkas_pengajuan_magang->surat_panggilan_upload_path);
+            if (!is_null($berkas_pengajuan_magang->surat_panggilan_upload_path)) {
+                $this->deleteImage($berkas_pengajuan_magang->surat_panggilan_upload_path);
+            }
 
             $upload_data_surat_panggilan = General::uploadFile($request->file('surat_panggilan'), 'surat-panggilan', 'document/surat-panggilan');
 
@@ -116,7 +123,9 @@ class BerkasPengajuanMagangController extends Controller
         }
         
         if ($request->file('surat_rekomendasi')) {
-            $this->deleteImage($berkas_pengajuan_magang->surat_rekomendasi_upload_path);
+            if (!is_null($berkas_pengajuan_magang->surat_rekomendasi_upload_path)) {
+                $this->deleteImage($berkas_pengajuan_magang->surat_rekomendasi_upload_path);
+            }
 
             $upload_data_surat_rekomendasi = General::uploadFile($request->file('surat_rekomendasi'), 'surat-rekomendasi', 'document/surat-rekomendasi');
 
@@ -130,7 +139,9 @@ class BerkasPengajuanMagangController extends Controller
         }
 
         if ($request->file('ktm')) {
-            $this->deleteImage($berkas_pengajuan_magang->ktm_upload_path);
+            if (!is_null($berkas_pengajuan_magang->ktm_upload_path)) {
+                $this->deleteImage($berkas_pengajuan_magang->ktm_upload_path);
+            }
 
             $upload_data_ktm = General::uploadFile($request->file('ktm'), 'ktm', 'document/ktm');
 
@@ -144,7 +155,9 @@ class BerkasPengajuanMagangController extends Controller
         }
         
         if ($request->file('surat_sehat')) {
-            $this->deleteImage($berkas_pengajuan_magang->surat_sehat_upload_path);
+            if (!is_null($berkas_pengajuan_magang->surat_sehat_upload_path)) {
+                $this->deleteImage($berkas_pengajuan_magang->surat_sehat_upload_path);
+            }
             
             $upload_data_surat_sehat = General::uploadFile($request->file('surat_sehat'), 'surat-sehat', 'document/surat-sehat');
 
@@ -158,7 +171,9 @@ class BerkasPengajuanMagangController extends Controller
         }
 
         if ($request->file('bpjs')) {
-            $this->deleteImage($berkas_pengajuan_magang->bpjs_upload_path);
+            if (!is_null($berkas_pengajuan_magang->bpjs_upload_path)) {
+                $this->deleteImage($berkas_pengajuan_magang->bpjs_upload_path);
+            }
 
             $upload_data_bpjs = General::uploadFile($request->file('bpjs'), 'bpjs', 'document/bpjs');
 
@@ -172,7 +187,9 @@ class BerkasPengajuanMagangController extends Controller
         }
 
         if ($request->file('foto')) {
-            $this->deleteImage($berkas_pengajuan_magang->foto_upload_path);
+            if (!is_null($berkas_pengajuan_magang->foto_upload_path)) {
+                $this->deleteImage($berkas_pengajuan_magang->foto_upload_path);
+            }
 
             $upload_data_foto = General::uploadFile($request->file('foto'), 'foto', 'document/foto');
 
@@ -186,7 +203,9 @@ class BerkasPengajuanMagangController extends Controller
         }
 
         if ($request->file('twibbon')) {
-            $this->deleteImage($berkas_pengajuan_magang->twibbon_upload_path);
+            if (!is_null($berkas_pengajuan_magang->twibbon_upload_path)) {
+                $this->deleteImage($berkas_pengajuan_magang->twibbon_upload_path);
+            }
 
             $upload_data_twibbon = General::uploadFile($request->file('twibbon'), 'twibbon', 'document/twibbon');
 
@@ -200,7 +219,7 @@ class BerkasPengajuanMagangController extends Controller
         }
 
         return redirect()
-            ->route('mahasiswa.upload-berkas.edit', $berkas_pengajuan_magang->id)
+            ->route('mahasiswa.upload-berkas.edit', $berkas_pengajuan_magang->pengajuan_magang_id)
             ->with('alert_type', 'success')
             ->with('message', 'Data berkas berhasil diupload');
     }
