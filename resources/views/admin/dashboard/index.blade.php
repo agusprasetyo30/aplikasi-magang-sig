@@ -59,6 +59,33 @@
 					<h5 class="card-title"><i class="fa fa-list mr-2"></i> List Pengajuan Magang</h5>
 				</div>
 				<div class="card-body">
+					<form action="" method="get">
+						<div class="row mb-2">
+							<div class="col-md-3">
+								<label>
+									Search:
+								</label>
+								<div class="input-group">
+									<input type="search" class="form-control" name="name" placeholder="Nama atau Instansi" value="{{ Request::get('name') ?? '' }}">
+										{{-- <button type="submit" class="btn btn-primary ml-2"><i class="fa fa-search"></i></button> --}}
+								</div>
+							</div>
+							<div class="col-md-3">
+								<label for="status">
+									Status:
+								</label>
+								<div class="input-group-append">
+									<select name="status" id="status" class="form-control select2">
+										<option value="" selected></option>
+										<option value="disetujui" {{Request::get('status') == 'disetujui' ? 'selected' : ''}}>Disetujui</option>
+										<option value="ditolak" {{Request::get('status') == 'ditolak' ? 'selected' : ''}}>Ditolak</option>
+										<option value="pending" {{Request::get('status') == 'pending' ? 'selected' : ''}}>Pending</option>
+									</select>
+									<button type="submit" class="btn btn-primary ml-2"><i class="fa fa-search"></i></button>
+								</div>
+							</div>
+						</div>
+					</form>
 					<table class="table table-bordered">
 						<thead>
 							<tr>
@@ -114,3 +141,11 @@
 	</div>
 @endsection
 
+@push('js')
+	<script>
+		$('#status').select2({
+			placeholder: 'Pilih status',
+			allowClear: true,
+		})
+	</script>
+@endpush

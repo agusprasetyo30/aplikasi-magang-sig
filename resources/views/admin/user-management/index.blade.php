@@ -32,7 +32,7 @@
 						<label for="user_type">
 							User Type:
 						</label>
-						<div class="input-group">
+						<div class="input-group-append">
 							<select name="user_type" id="user_type" class="form-control select2">
 								<option value="" selected></option>
 								<option value="admin" {{Request::get('user_type') == 'admin' ? 'selected' : ''}}>Admin</option>

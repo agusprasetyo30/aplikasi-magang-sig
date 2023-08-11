@@ -15,12 +15,45 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $temp_status = ''; // digunakan untuk get data status
+
+        switch ($request->get('status')) {
+            case 'pending':
+                $temp_status = '0';
+                break;
+            case 'disetujui':
+                $temp_status = '1';
+                break;
+            case 'ditolak':
+                $temp_status = '2';
+                break;
+        }
+
         $total_halaman = 5; // total data yang ditampilkan
         $number = General::numberPagination($total_halaman);
 
         $pengajuan_magang = PengajuanMagang::query()->orderBy('created_at', 'desc');
+
+        // Jika pencarian nama / instansi
+        if ($request->get('name')) {
+            $pengajuan_magang = $pengajuan_magang->where('name', 'like', '%' . $request->get('name') . '%')
+                ->orWhere('instansi', 'like', '%' . $request->get('name') . '%');
+        }
+
+        // jika mencari berdasarkan status
+        if ($request->get('status')) {
+            $pengajuan_magang = $pengajuan_magang->where('status', $temp_status);
+        }
+
+        // jika pencarian dua-duanya
+        if (!is_null($request->get('name')) && !is_null($request->get('status'))) {
+            $pengajuan_magang = $pengajuan_magang->where('name', 'like', '%' . $request->get('name') . '%')
+                ->orWhere('instansi', 'like', '%' . $request->get('name') . '%')
+                ->where('status', $temp_status);
+        }
+
         $total_mahasiswa = $this->hitungTotalMahasiswa($pengajuan_magang->get());
         $total_pengajuan_magang = $pengajuan_magang->get()->count();
 
