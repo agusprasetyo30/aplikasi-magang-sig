@@ -1,4 +1,5 @@
 <h1 align="center">Aplikasi Magang</h1>
+
 ## How to use
 1. Clone repository ini
 2. setelah itu masuk ke folder, dan ketik di terminal `composer install` agar file bisa digunakan
