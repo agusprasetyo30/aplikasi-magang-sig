@@ -21,6 +21,7 @@ class Select2Controller extends Controller
                 ->get();
         }
 
+        
         // Digunakan hanya untuk mennampilkan jurusan yang memiliki/terdapat relasi kuota magang
         // ini dieksekusi jika menginginkan data list jurusan yang terdapat relasi pada kuota magang
         if ($request->get('kuota')) {
