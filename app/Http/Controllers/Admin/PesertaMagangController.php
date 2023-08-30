@@ -23,43 +23,46 @@ class PesertaMagangController extends Controller
      */
     public function index(Request $request)
     {
+        $getMonthYear = explode('-', $request->periode) ?? '';
         $jumlah_halaman = 5;
         $number = General::numberPagination($jumlah_halaman);
-        
-        $peserta_magang = PengajuanMagang::orderBy('created_at', 'desc')->paginate($jumlah_halaman);
-        
+
+        $peserta_magang = PengajuanMagang::query();
+
+        // jika pencariannya digunakan bersama
+        if (!is_null($request->search) && !is_null($request->periode)) {
+             // Pencarian nama, jurusan/prodi, dan universitas/instansi
+            $peserta_magang = $peserta_magang
+                ->whereMonth('created_at', '=', $getMonthYear[0]) //month
+                ->whereYear('created_at', '=', $getMonthYear[1]) // year
+                ->where('name', 'like', '%' . $request->get('search') . '%')
+                ->orWhere('instansi', 'like', '%' . $request->get('search') . '%')
+                ->whereHas('jurusan', function($q) use ($request) {
+                    $q->orWhere('name', 'like', '%' . $request->get('search') . '%');
+                });
+        }
+
+        // pencarian untuk input pencarian
         if (!is_null($request->search)) {
             // Pencarian nama, jurusan/prodi, dan universitas/instansi
-            $peserta_magang = PengajuanMagang::whereHas('jurusan', function($q) use ($request) {
+            $peserta_magang = $peserta_magang->whereHas('jurusan', function($q) use ($request) {
                     $q->where('name', 'like', '%' . $request->get('search') . '%');
                 })
                 ->orWhere('name', 'like', '%' . $request->get('search') . '%')
-                ->orWhere('instansi', 'like', '%' . $request->get('search') . '%')->paginate($jumlah_halaman);
+                ->orWhere('instansi', 'like', '%' . $request->get('search') . '%');
         }
 
+        // Pencarian jika hanya memilih periode
+        if (!is_null($request->periode)) {
+            $peserta_magang = PengajuanMagang::with('jurusan')
+                ->whereMonth('created_at', '=', $getMonthYear[0]) //month
+                ->whereYear('created_at', '=', $getMonthYear[1]); //year
+        }
+
+        $peserta_magang = $peserta_magang->paginate($jumlah_halaman);
+
         return view('admin.peserta-magang.index', compact('number', 'peserta_magang'));
-        
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -72,11 +75,11 @@ class PesertaMagangController extends Controller
     {
         $merge_nama_anggota = '';
         $periode_kp = '';
-        
+
         // default ketika mahasiswa/user sudah diterima dan upload pengajuan sudah disetujui
-        // jika statusnya true maka bisa menampilkan file 
-        $status_berkas_pengajuan_magang = true; 
-        
+        // jika statusnya true maka bisa menampilkan file
+        $status_berkas_pengajuan_magang = true;
+
         $peserta_magang = PengajuanMagang::with('berkasPengajuanMagang', 'user')
             ->where('id', $id)->first();
 
@@ -102,7 +105,7 @@ class PesertaMagangController extends Controller
 
         // untuk proses nama list anggota
         $nama_anggota_kelompok = json_decode($peserta_magang->nama_anggota_kelompok);
-        
+
         foreach ($nama_anggota_kelompok as $key => $value) {
             $merge_nama_anggota = $merge_nama_anggota . $nama_anggota_kelompok[$key];
 
@@ -115,41 +118,7 @@ class PesertaMagangController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    /**
-     * 
      *
      * @param Request $request
      * @param [type] $id
@@ -158,10 +127,10 @@ class PesertaMagangController extends Controller
     public function approvalRejectPesertaMagang($id, $type)
     {
         DB::beginTransaction();
-        
+
         try {
             $status_approval = '';
-            
+
             switch ($type) {
                 case 'approve':
                     $status_approval = '1';
@@ -170,7 +139,7 @@ class PesertaMagangController extends Controller
                     BerkasPengajuanMagang::create([
                         'pengajuan_magang_id' => $id
                     ]);
-                    
+
                     BerkasPesertaMagang::create([
                         'pengajuan_magang_id' => $id
                     ]);
@@ -185,7 +154,7 @@ class PesertaMagangController extends Controller
             PengajuanMagang::where('id', $id)->update([
                 'status'  => $status_approval
             ]);
-            
+
             DB::commit();
 
             return redirect()
@@ -210,7 +179,7 @@ class PesertaMagangController extends Controller
         if (is_null($berkas_peserta_magang)) {
             abort(404);
         }
-        
+
         return view('admin.peserta-magang.upload_data', [
             'peserta_magang'        => $berkas_peserta_magang,
             'berkas_peserta_magang' => $berkas_peserta_magang->berkasPesertaMagang,
@@ -342,7 +311,28 @@ class PesertaMagangController extends Controller
             ->with('message', 'Data berkas berhasil diupload');
     }
 
-/**
+    /**
+     * Undocumented function
+     *
+     * @param [type] $value
+     * @return void
+     */
+    public function checkStatus($value)
+    {
+        switch ($value) {
+            case 'pending':
+                return '0';
+                break;
+            case 'disetujui':
+                return '1';
+                break;
+            case 'ditolak':
+                return '2';
+                break;
+        }
+    }
+
+    /**
      * Validation for checking input in form
      *
      * @param [type] $request
@@ -357,7 +347,7 @@ class PesertaMagangController extends Controller
         ];
 
         return Validator::make($request->all(), $validation, [
-            
+
         ]);
     }
 }

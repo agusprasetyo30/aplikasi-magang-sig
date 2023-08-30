@@ -21,13 +21,25 @@
 		<div class="card-body">
 			<form action="" method="get">
 				<div class="row mb-2">
-					<div class="col-md-4">
+					<div class="col-md-3">
 						<label>
 							Search:
 						</label>
 						<div class="input-group">
 							<input type="search" class="form-control" name="search" placeholder="Masukan data pencarian ..." value="{{ Request::get('search') ?? '' }}">
+								{{-- <button type="submit" class="btn btn-primary ml-2"><i class="fa fa-search"></i></button> --}}
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>Periode</label>
+							<div class="input-group date">
+								<input type="text" class="form-control periode" placeholder="Bulan - Tahun" name="periode" value="{{ Request::get('periode') }}" autocomplete="off">
+								<div class="input-group-text">
+									<span class="fa fa-calendar"></span>
+								</div>
 								<button type="submit" class="btn btn-primary ml-2"><i class="fa fa-search"></i></button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -66,7 +78,7 @@
 
 										@case(2)
 											<span class="badge badge-danger">DITOLAK</span>
-											@break											
+											@break
 									@endswitch
 								</td>
 								<td>
@@ -83,7 +95,7 @@
 												@method('put')
 												<button class="btn btn-danger btn-sm btn-block text-left mb-1" type="submit" onclick="return confirm('Apakah anda yakin menolak pengajuan ini ?')"><i class="fa fa-times mr-2"></i>Ditolak</button>
 											</form>
-											
+
 											@break
 
 										@case(1)
@@ -92,7 +104,7 @@
 
 										@case(2)
 											<a href="#" class="btn btn-danger btn-sm btn-block text-left"><i class="fa fa-trash mr-2"></i> Hapus</a>
-											@break											
+											@break
 									@endswitch
 
 										<a href="{{ route('admin.peserta-magang.show', $value->id) }}" class="btn btn-info btn-sm btn-block text-left"><i class="fa fa-list mr-2"></i> Details</a>
@@ -117,12 +129,23 @@
 			</div>
 		</div>
 	</div>
+
+
 @endsection
 
 @push('js')
 	<script>
-		$('a.test').click(function() {
-			toastr.success('Lorem ipsum dolor sit amet, consetetur sadipscing elitr.')
+		$('#status').select2({
+			placeholder: 'Pilih status',
+			allowClear: true,
+		})
+
+		$(".periode").datepicker( {
+			format: "mm-yyyy",
+			startView: "months",
+    		minViewMode: "months",
 		});
 	</script>
+
+
 @endpush
