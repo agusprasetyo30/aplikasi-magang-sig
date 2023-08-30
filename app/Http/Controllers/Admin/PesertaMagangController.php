@@ -341,13 +341,14 @@ class PesertaMagangController extends Controller
     private function checkValidationInput($request)
     {
         $validation = [
-            'proposal'        => ['mimes:pdf', 'file', 'max:2048'],
-            'cv'              => ['mimes:pdf', 'file', 'max:2048'],
-            'surat_pengantar' => ['mimes:pdf', 'file', 'max:2048'],
+            'surat_panggilan'   => ['mimes:pdf', 'file', 'max:2048'],
+            'absensi'           => ['mimes:pdf,xlsx', 'file', 'max:2048'],
+            'surat_persetujuan' => ['mimes:pdf', 'file', 'max:2048'],
+            'lampiran_surat_panggilan' => ['mimes:pdf', 'file', 'max:2048'],
+            'id_card'           => ['mimes:pdf', 'file', 'max:2048'],
+            'form_bimbingan'    => ['mimes:pdf,xlsx', 'file', 'max:2048'],
         ];
 
-        return Validator::make($request->all(), $validation, [
-
-        ]);
+        return Validator::make($request->all(), $validation);
     }
 }

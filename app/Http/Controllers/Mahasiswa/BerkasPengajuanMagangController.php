@@ -64,7 +64,7 @@ class BerkasPengajuanMagangController extends Controller
     {
         // dd($id);
         $berkas_pengajuan_magang = BerkasPengajuanMagang::where('pengajuan_magang_id', $id)->first();
-        
+
         // dd($berkas_pengajuan_magang, $id);
         return view('mahasiswa.upload-berkas.edit', compact('berkas_pengajuan_magang'));
     }
@@ -105,7 +105,7 @@ class BerkasPengajuanMagangController extends Controller
                 'surat_pernyataan_file_name'   => $request->surat_pernyataan_file_name
             ]);
         }
-        
+
         if ($request->file('surat_panggilan')) {
             if (!is_null($berkas_pengajuan_magang->surat_panggilan_upload_path)) {
                 $this->deleteImage($berkas_pengajuan_magang->surat_panggilan_upload_path);
@@ -115,13 +115,13 @@ class BerkasPengajuanMagangController extends Controller
 
             $request->merge(['surat_panggilan_upload_path' => $upload_data_surat_panggilan['file_location']]);
             $request->merge(['surat_panggilan_file_name' => $request->file('surat_panggilan')->getClientOriginalName()]);
-        
+
             $berkas_pengajuan_magang->update([
                 'surat_panggilan_upload_path' => $request->surat_panggilan_upload_path,
                 'surat_panggilan_file_name'   => $request->surat_panggilan_file_name
             ]);
         }
-        
+
         if ($request->file('surat_rekomendasi')) {
             if (!is_null($berkas_pengajuan_magang->surat_rekomendasi_upload_path)) {
                 $this->deleteImage($berkas_pengajuan_magang->surat_rekomendasi_upload_path);
@@ -131,7 +131,7 @@ class BerkasPengajuanMagangController extends Controller
 
             $request->merge(['surat_rekomendasi_upload_path' => $upload_data_surat_rekomendasi['file_location']]);
             $request->merge(['surat_rekomendasi_file_name' => $request->file('surat_rekomendasi')->getClientOriginalName()]);
-            
+
             $berkas_pengajuan_magang->update([
                 'surat_rekomendasi_upload_path' => $request->surat_rekomendasi_upload_path,
                 'surat_rekomendasi_file_name'   => $request->surat_rekomendasi_file_name
@@ -153,17 +153,17 @@ class BerkasPengajuanMagangController extends Controller
                 'ktm_file_name'   => $request->ktm_file_name
             ]);
         }
-        
+
         if ($request->file('surat_sehat')) {
             if (!is_null($berkas_pengajuan_magang->surat_sehat_upload_path)) {
                 $this->deleteImage($berkas_pengajuan_magang->surat_sehat_upload_path);
             }
-            
+
             $upload_data_surat_sehat = General::uploadFile($request->file('surat_sehat'), 'surat-sehat', 'document/surat-sehat');
 
             $request->merge(['surat_sehat_upload_path' => $upload_data_surat_sehat['file_location']]);
             $request->merge(['surat_sehat_file_name' => $request->file('surat_sehat')->getClientOriginalName()]);
-            
+
             $berkas_pengajuan_magang->update([
                 'surat_sehat_upload_path' => $request->surat_sehat_upload_path,
                 'surat_sehat_file_name'   => $request->surat_sehat_file_name
@@ -255,7 +255,7 @@ class BerkasPengajuanMagangController extends Controller
         ];
 
         return Validator::make($request->all(), $validation, [
-            
+
         ]);
     }
 

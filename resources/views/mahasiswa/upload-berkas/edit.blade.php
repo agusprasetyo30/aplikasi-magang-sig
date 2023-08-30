@@ -4,7 +4,7 @@
 
 @section('content')
 	<div class="row justify-content-center">
-		<div class="col-md-10">	
+		<div class="col-md-10">
 			<div class="card card-info">
 				<div class="card-header">
 					<h3 class="card-title"><i class="fa fa-upload mr-2"></i>Edit Berkas Pengajuan Magang Mahasiswa</h3>
@@ -24,7 +24,7 @@
 										</div>
 									@enderror
 									<small >* Max size 2 MB | Format: PDF</small> <br>
-									<small>File :  
+									<small>File :
 										@if (is_null($berkas_pengajuan_magang->surat_pernyataan_upload_path))
 											-
 										@else
@@ -41,7 +41,7 @@
 										</div>
 									@enderror
 									<small >* Max size 2 MB | Format: PDF</small> <br>
-									<small>File :  
+									<small>File :
 										@if (is_null($berkas_pengajuan_magang->surat_panggilan_upload_path))
 											-
 										@else
@@ -58,7 +58,7 @@
 										</div>
 									@enderror
 									<small >* Max size 2 MB | Format: PDF</small> <br>
-									<small>File :  
+									<small>File :
 										@if (is_null($berkas_pengajuan_magang->surat_rekomendasi_upload_path))
 											-
 										@else
@@ -75,7 +75,7 @@
 										</div>
 									@enderror
 									<small >* Max size 2 MB | Format: PDF</small> <br>
-									<small>File :  
+									<small>File :
 										@if (is_null($berkas_pengajuan_magang->ktm_upload_path))
 											-
 										@else
@@ -83,7 +83,7 @@
 										@endif
 									</small>
 								</div>
-								
+
 								</div>
 								<div class="col-6">
 									<div class="form-group">
@@ -95,7 +95,7 @@
 											</div>
 										@enderror
 										<small >* Max size 2 MB | Format: PDF</small> <br>
-										<small>File :  
+										<small>File :
 											@if (is_null($berkas_pengajuan_magang->surat_sehat_upload_path))
 												-
 											@else
@@ -112,7 +112,7 @@
 											</div>
 										@enderror
 										<small >* Max size 2 MB | Format: PDF</small> <br>
-										<small>File :  
+										<small>File :
 											@if (is_null($berkas_pengajuan_magang->bpjs_upload_path))
 												-
 											@else
@@ -129,7 +129,7 @@
 											</div>
 										@enderror
 										<small >* Max size 2 MB | Format: PDF</small> <br>
-										<small>File :  
+										<small>File :
 											@if (is_null($berkas_pengajuan_magang->foto_upload_path))
 												-
 											@else
@@ -146,7 +146,7 @@
 											</div>
 										@enderror
 										<small >* Max size 2 MB | Format: PDF</small> <br>
-										<small>File :  
+										<small>File :
 											@if (is_null($berkas_pengajuan_magang->twibbon_upload_path))
 												-
 											@else

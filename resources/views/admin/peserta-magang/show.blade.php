@@ -76,11 +76,6 @@
 						<div class="col-md-8">{{ $peserta_magang->tujuan }}</div>
 					</div>
 					<div class="row">
-						<div class="col-md-3 font-weight-bolder">Ajuan Topik</div>
-						<div class="col-md-1 text-right">:</div>
-						<div class="col-md-8">{{ $peserta_magang->ajuan_topik }}</div>
-					</div>
-					<div class="row">
 						<div class="col-md-3 font-weight-bolder">Status</div>
 						<div class="col-md-1 text-right">:</div>
 						<div class="col-md-8">
@@ -95,7 +90,7 @@
 
 								@case(2)
 									<span class="badge badge-danger">DITOLAK</span>
-									@break											
+									@break
 							@endswitch
 						</div>
 					</div>
@@ -131,12 +126,12 @@
 							<a href="{{ asset('storage/' . $peserta_magang->surat_pengantar_upload_path) }}" title="Klik untuk membuka file" target="_blank">{{ $peserta_magang->surat_pengantar_file_name }}</a>
 						</div>
 					</div>
-					
+
 
 					@if ($status_berkas_pengajuan_magang)
 
 					<p class="bg-primary p-2 mt-2" for="">File Perlengkapan KP :</p>
-								
+
 					<div class="row">
 						<div class="col-md-3 font-weight-bolder">Surat Pernyataan</div>
 						<div class="col-md-1 text-right">:</div>
@@ -162,7 +157,7 @@
 							@if (!is_null($peserta_magang->berkasPengajuanMagang->surat_rekomendasi_upload_path))
 								<a href="{{ asset('storage/' . $peserta_magang->berkasPengajuanMagang->surat_rekomendasi_upload_path) }}" title="Klik untuk membuka file" target="_blank">{{ $peserta_magang->berkasPengajuanMagang->surat_rekomendasi_file_name }}</a>
 							@endif
-							
+
 						</div>
 					</div>
 					<div class="row">
@@ -172,7 +167,7 @@
 							@if (!is_null($peserta_magang->berkasPengajuanMagang->ktm_upload_path))
 								<a href="{{ asset('storage/' . $peserta_magang->berkasPengajuanMagang->ktm_upload_path) }}" title="Klik untuk membuka file" target="_blank">{{ $peserta_magang->berkasPengajuanMagang->ktm_file_name }}</a>
 							@endif
-							
+
 						</div>
 					</div>
 					<div class="row">
@@ -182,7 +177,7 @@
 							@if (!is_null($peserta_magang->berkasPengajuanMagang->surat_sehat_upload_path))
 								<a href="{{ asset('storage/' . $peserta_magang->berkasPengajuanMagang->surat_sehat_upload_path) }}" title="Klik untuk membuka file" target="_blank">{{ $peserta_magang->berkasPengajuanMagang->surat_sehat_file_name }}</a>
 							@endif
-							
+
 						</div>
 					</div>
 					<div class="row">
@@ -192,7 +187,7 @@
 							@if (!is_null($peserta_magang->berkasPengajuanMagang->bpjs_upload_path))
 								<a href="{{ asset('storage/' . $peserta_magang->berkasPengajuanMagang->bpjs_upload_path) }}" title="Klik untuk membuka file" target="_blank">{{ $peserta_magang->berkasPengajuanMagang->bpjs_file_name }}</a>
 							@endif
-							
+
 						</div>
 					</div>
 					<div class="row">
@@ -202,7 +197,7 @@
 							@if (!is_null($peserta_magang->berkasPengajuanMagang->foto_upload_path))
 								<a href="{{ asset('storage/' . $peserta_magang->berkasPengajuanMagang->foto_upload_path) }}" title="Klik untuk membuka file" target="_blank">{{ $peserta_magang->berkasPengajuanMagang->foto_file_name }}</a>
 							@endif
-							
+
 						</div>
 					</div>
 					<div class="row">
@@ -212,7 +207,7 @@
 							@if (!is_null($peserta_magang->berkasPengajuanMagang->twibbon_upload_path))
 								<a href="{{ asset('storage/' . $peserta_magang->berkasPengajuanMagang->twibbon_upload_path) }}" title="Klik untuk membuka file" target="_blank">{{ $peserta_magang->berkasPengajuanMagang->twibbon_file_name }}</a>
 							@endif
-							
+
 						</div>
 					</div>
 					@endif

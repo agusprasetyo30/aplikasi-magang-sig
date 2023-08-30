@@ -17,7 +17,12 @@
 							<div class="col-6">
 								<div class="form-group">
 									<label for="proposal">Surat Panggilan</label>
-									<input type="file" name="surat_panggilan" id="surat_panggilan" class="form-control h-100 mb-0" accept=".pdf">
+									<input type="file" name="surat_panggilan" id="surat_panggilan" class="form-control h-100 mb-0 @error('surat_panggilan') is-invalid @enderror" accept=".pdf">
+									@error('surat_panggilan')
+										<div class="invalid-feedback">
+											{{ $message }}
+										</div>
+									@enderror
 									<small class="text-danger">* Max size 2 MB | Format: PDF</small> <br>
 									<small>File :
 										@if (is_null($berkas_peserta_magang->surat_panggilan_upload_path))
@@ -28,8 +33,13 @@
 									</small>
 								</div>
 								<div class="form-group">
-									<label for="proposal">Lampiran Surat Panggilan</label>
-									<input type="file" name="lampiran_surat_panggilan" id="lampiran_surat_panggilan" class="form-control h-100 mb-0" accept=".pdf">
+									<label for="lampiran_surat_panggilan">Lampiran Surat Panggilan</label>
+									<input type="file" name="lampiran_surat_panggilan" id="lampiran_surat_panggilan" class="form-control h-100 mb-0 @error('lampiran_surat_panggilan') is-invalid @enderror" accept=".pdf">
+									@error('lampiran_surat_panggilan')
+										<div class="invalid-feedback">
+											{{ $message }}
+										</div>
+									@enderror
 									<small class="text-danger">* Max size 2 MB | Format: PDF</small><br>
 									<small>File :
 										@if (is_null($berkas_peserta_magang->lampiran_surat_panggilan_upload_path))
@@ -40,8 +50,13 @@
 									</small>
 								</div>
 								<div class="form-group">
-									<label for="proposal">Surat Persetujuan</label>
-									<input type="file" name="surat_persetujuan" id="surat_persetujuan" class="form-control h-100 mb-0" accept=".pdf">
+									<label for="surat_persetujuan">Surat Persetujuan</label>
+									<input type="file" name="surat_persetujuan" id="surat_persetujuan" class="form-control h-100 mb-0 @error('surat_persetujuan') is-invalid @enderror" accept=".pdf">
+									@error('surat_persetujuan')
+										<div class="invalid-feedback">
+											{{ $message }}
+										</div>
+									@enderror
 									<small class="text-danger">* Max size 2 MB | Format: PDF</small><br>
 									<small>File :
 										@if (is_null($berkas_peserta_magang->surat_persetujuan_upload_path))
@@ -54,8 +69,13 @@
 							</div>
 							<div class="col-6">
 								<div class="form-group">
-									<label for="proposal">Absensi</label>
-									<input type="file" name="absensi" id="absensi" class="form-control h-100 mb-0" accept=".pdf, .xlsx">
+									<label for="absensi">Absensi</label>
+									<input type="file" name="absensi" id="absensi" class="form-control h-100 mb-0 @error('absensi') is-invalid @enderror" accept=".pdf, .xlsx">
+									@error('absensi')
+										<div class="invalid-feedback">
+											{{ $message }}
+										</div>
+									@enderror
 									<small class="text-danger">* Max size 2 MB | Format: PDF, XLSX (Excel)</small><br>
 									<small>File :
 										@if (is_null($berkas_peserta_magang->absensi_upload_path))
@@ -66,8 +86,13 @@
 									</small>
 								</div>
 								<div class="form-group">
-									<label for="proposal">ID Card</label>
-									<input type="file" name="id_card" id="id_card" class="form-control h-100 mb-0" accept=".pdf">
+									<label for="id_card">ID Card</label>
+									<input type="file" name="id_card" id="id_card" class="form-control h-100 mb-0 @error('id_card') is-invalid @enderror" accept=".pdf">
+									@error('id_card')
+										<div class="invalid-feedback">
+											{{ $message }}
+										</div>
+									@enderror
 									<small class="text-danger">* Max size 2 MB | Format: PDF</small><br>
 									<small>File :
 										@if (is_null($berkas_peserta_magang->id_card_upload_path))
@@ -78,9 +103,14 @@
 									</small>
 								</div>
 								<div class="form-group">
-									<label for="proposal">Form Bimbingan</label>
-									<input type="file" name="form_bimbingan" id="form_bimbingan" class="form-control h-100 mb-0" accept=".pdf">
-									<small class="text-danger">* Max size 2 MB | Format: PDF</small><br>
+									<label for="form_bimbingan">Form Bimbingan</label>
+									<input type="file" name="form_bimbingan" id="form_bimbingan" class="form-control h-100 mb-0 @error('form_bimbingan') is-invalid @enderror" accept=".pdf, .xlsx">
+									@error('form_bimbingan')
+										<div class="invalid-feedback">
+											{{ $message }}
+										</div>
+									@enderror
+									<small class="text-danger">* Max size 2 MB | Format: PDF, XLSX (Excel)</small><br>
 									<small>File :
 										@if (is_null($berkas_peserta_magang->form_bimbingan_upload_path))
 											-
@@ -110,4 +140,3 @@
 		</div>
 	</div>
 @endsection
-

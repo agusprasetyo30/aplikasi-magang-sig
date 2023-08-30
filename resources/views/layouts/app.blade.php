@@ -26,7 +26,7 @@
 		<link href="{{ asset('vendor/select2/css/select2-bootstrap4.min.css') }}" rel="stylesheet" />
 		<link href="{{ asset('vendor/toastr/toastr.min.css') }}" rel="stylesheet" />
 		<link href="{{ asset('vendor/date-picker/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
-		
+
 		<style>
 			a.nav-link{
 				font-size: 12px;
@@ -60,14 +60,14 @@
 				</div>
 			</section>
 		</div>
-	
+
 		<!-- footer start -->
 		<footer>
 			@include('layouts._footer')
 		</footer>
 		<!-- footer end -->
 		<div class="cpy_">
-			<p class="mx-auto">© 2023 All Rights Reserved By Semen Indonesia Group			
+			<p class="mx-auto">© 2023 All Rights Reserved By Semen Indonesia Group
 			</p>
 		</div>
 		<!-- jQery -->
@@ -84,14 +84,14 @@
 		<script>
 			// untuk sweetalert
 			// message : untuk pesan toast/alert yang akan ditampilkan
-			// alert_type : untuk type alert yang ditampilkan {info, success, warning, error}, 
+			// alert_type : untuk type alert yang ditampilkan {info, success, warning, error},
 			// dengan defaultnya adalah "success"
-			
+
 			@if(Session::get('message'))
 				@if (Session::get("alert_type") == 'success')
 					toastr.success('{{ Session::get("message") }}', 'Success')
 				@endif
-				
+
 				@if (Session::get("alert_type") == 'info')
 					toastr.info('{{ Session::get("message") }}', 'Info')
 				@endif
