@@ -10,7 +10,7 @@
 
 @section('content')
 <div class="row justify-content-center">
-	<div class="col-md-12">	
+	<div class="col-md-12">
 		<div class="card card-info">
 			<div class="card-header">
 				<h3 class="card-title"><i class="fa fa-edit mr-2"></i> Update Pendaftaran Kerja Praktik PT. Semen Gresik Tuban</h3>
@@ -65,7 +65,7 @@
 							</div>
 							<div class="form-group">
 								<label for="nama_semua_anggota">Nama Anggota Kelompok</label>
-								<input type="text" class="form-control mb-0" name="nama_semua_anggota" id="nama_semua_anggota" placeholder="Contoh: Ronaldowati,Ahmad Messi,Bambang Pamungkas" 
+								<input type="text" class="form-control mb-0" name="nama_semua_anggota" id="nama_semua_anggota" placeholder="Contoh: Ronaldowati,Ahmad Messi,Bambang Pamungkas"
 									value="{{ $pengajuan_magang->nama_anggota_kelompok }}" required>
 								<small>* Untuk nama anggota ditulis nama lengkap & dipisahkan dengan koma (tanpa spasi)</small>
 							</div>
@@ -74,11 +74,6 @@
 							<div class="form-group">
 								<label for="tujuan">Tujuan Kerja Praktek</label>
 								<textarea class="form-control" name="tujuan" id="tujuan" rows="1" style="min-height: 0" required>{{ $pengajuan_magang->tujuan }}</textarea>
-							</div>
-							
-							<div class="form-group">
-								<label for="instansi">Ajuan Topik <small>(Optional)</small></label>
-								<input type="text" class="form-control" name="ajuan_topik" id="ajuan_topik" value="{{ $pengajuan_magang->ajuan_topik }}">
 							</div>
 							<div class="form-group">
 								<label>Periode Awal Kerja Praktek</label>
@@ -100,7 +95,7 @@
 							</div>
 							<div class="form-group">
 								<label for="periode_awal_kerja">Lama Pelaksanaan KP</label>
-		
+
 								<div class="form-group">
 									<div class="custom-control custom-radio custom-control-inline">
 										<input class="custom-control-input" type="radio" id="1_month" name="lama_pelaksanaan" value="1" required {{ $pengajuan_magang->lama_bulan_pelaksanaan == "1" ? 'checked' : '' }}>
@@ -111,7 +106,7 @@
 										<label for="2_month" class="custom-control-label font-weight-normal">2 Bulan</label>
 										</div>
 									<div class="custom-control custom-radio custom-control-inline">
-										<input class="custom-control-input" type="radio" id="3_month" name="lama_pelaksanaan" value="3" required {{ $pengajuan_magang->lama_bulan_pelaksanaan == "3" ? 'checked' : '' }}> 
+										<input class="custom-control-input" type="radio" id="3_month" name="lama_pelaksanaan" value="3" required {{ $pengajuan_magang->lama_bulan_pelaksanaan == "3" ? 'checked' : '' }}>
 										<label for="3_month" class="custom-control-label font-weight-normal">3 Bulan</label>
 									</div>
 								</div>
@@ -174,7 +169,7 @@
 @push('js')
 	<script>
 		let status = '{!! $pengajuan_magang->status !!}'
-		
+
 		// Selected Jurusan
 		$('.select2[name="jurusan"]').empty();
 		let selected_working_relations = new Option('{!! $pengajuan_magang->jurusan->name !!}', '{!! $pengajuan_magang->jurusan_id !!}', "selected");

@@ -26,7 +26,6 @@ class PengajuanMagang extends Model
         'jumlah_total_kelompok',
         'nama_anggota_kelompok',
         'tujuan',
-        'ajuan_topik',
         'periode_awal',
         'periode_akhir',
         'lama_bulan_pelaksanaan',

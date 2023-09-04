@@ -77,7 +77,6 @@ class PengajuanMagangController extends Controller
             'jumlah_total_kelompok' => $request->jumlah_total_kelompok,
             'nama_anggota_kelompok' => json_encode($split_nama_anggota),
             'tujuan' => $request->tujuan,
-            'ajuan_topik' => $request->ajuan_topik,
             'periode_awal' => Carbon::parse($request->periode_awal)->format('Y-m-d'),
             'periode_akhir' => Carbon::parse($request->periode_akhir)->format('Y-m-d'),
             'lama_bulan_pelaksanaan' => $request->lama_pelaksanaan,
@@ -108,7 +107,7 @@ class PengajuanMagangController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**
@@ -121,7 +120,7 @@ class PengajuanMagangController extends Controller
     {
         $merge_nama_anggota = '';
         $convert_array = json_decode($pengajuan_magang->nama_anggota_kelompok);
-        
+
         foreach ($convert_array as $key => $value) {
             $merge_nama_anggota = $merge_nama_anggota . $convert_array[$key];
 
@@ -173,7 +172,7 @@ class PengajuanMagangController extends Controller
             (new BerkasPengajuanMagangController)->deleteImage($pengajuan_magang->proposal_upload_path);
 
             $upload_data_proposal = General::uploadFile($request->file('proposal'), 'proposal', 'document/proposal');
-            
+
             $request->merge(['proposal_upload_path' => $upload_data_proposal['file_location']]);
             $request->merge(['proposal_file_name' => $request->file('proposal')->getClientOriginalName()]);
 
@@ -188,7 +187,7 @@ class PengajuanMagangController extends Controller
             (new BerkasPengajuanMagangController)->deleteImage($pengajuan_magang->surat_pengantar_upload_path);
 
             $upload_data_surat_pengantar = General::uploadFile($request->file('surat_pengantar'), 'surat-pengantar', 'document/surat-pengantar');
-            
+
             $request->merge(['surat_pengantar_upload_path' => $upload_data_surat_pengantar['file_location']]);
             $request->merge(['surat_pengantar_file_name' => $request->file('surat_pengantar')->getClientOriginalName()]);
 
@@ -211,7 +210,6 @@ class PengajuanMagangController extends Controller
             'jumlah_total_kelompok' => $request->jumlah_total_kelompok,
             'nama_anggota_kelompok' => json_encode($split_nama_anggota),
             'tujuan' => $request->tujuan,
-            'ajuan_topik' => $request->ajuan_topik,
             'periode_awal' => Carbon::parse($request->periode_awal)->format('Y-m-d'),
             'periode_akhir' => Carbon::parse($request->periode_akhir)->format('Y-m-d'),
             'lama_bulan_pelaksanaan' => $request->lama_pelaksanaan,
@@ -263,7 +261,7 @@ class PengajuanMagangController extends Controller
         }
 
         return Validator::make($request->all(), $validation, [
-            
+
         ]);
     }
 }

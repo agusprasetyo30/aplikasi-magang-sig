@@ -24,7 +24,7 @@
 						<div class="col-6">
 							<div class="form-group">
 								<label for="instansi">Nama</label>
-								<input type="text" class="form-control" name="name" id="name" value="{{ old('nama') }}" required>
+								<input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}" required>
 							</div>
 							<div class="form-group">
 								<label for="nim">NIM</label>
@@ -36,7 +36,9 @@
 							</div>
 							<div class="form-group">
 								<label for="jurusan">Jurusan</label>
-								<select name="jurusan" id="jurusan" class="select2 w-100" required data-jurusan-select2="{{ route('select2.jurusan', ['kuota' => 1]) }}"></select>
+								<select name="jurusan" id="jurusan" class="select2 w-100" required data-jurusan-select2="{{ route('select2.jurusan', ['kuota' => 1]) }}">
+									
+								</select>
 							</div>
 							<div class="form-group">
 								<label for="jenjang_pendidikan">Jenjang Pendidikan<x-required/></label>
@@ -74,11 +76,6 @@
 							<div class="form-group">
 								<label for="tujuan">Tujuan Kerja Praktek</label>
 								<textarea class="form-control" name="tujuan" id="tujuan" rows="1" style="min-height: 0" required>{{ old('tujuan') }}</textarea>
-							</div>
-
-							<div class="form-group">
-								<label for="instansi">Ajuan Topik <small>(Optional)</small></label>
-								<input type="text" class="form-control" name="ajuan_topik" id="ajuan_topik" value="{{ old('ajuan_topik') }}">
 							</div>
 							<div class="form-group">
 								<label>Periode Awal Kerja Praktek</label>
@@ -169,7 +166,6 @@
 	<script>
 		$('.select2[name=jurusan]').select2({
 			placeholder: 'Pilih jurusan',
-			allowClear: true,
 			ajax: {
 				url: $('.select2[name=jurusan]').data('jurusan-select2')
 			}
