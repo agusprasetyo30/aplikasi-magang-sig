@@ -35,7 +35,8 @@ class PengajuanMagang extends Model
         'proposal_file_name',
         'surat_pengantar_upload_path',
         'surat_pengantar_file_name',
-        'status'
+        'status',
+        'pengumuman'
     ];
 
     public function jurusan()

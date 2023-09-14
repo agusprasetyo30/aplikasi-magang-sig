@@ -35,7 +35,7 @@
 									@else
 										<img class="profile-user-img img-fluid img-fit-cover img-circle w-100 h-100" src="{{ asset('storage/' . Auth::user()->photo_upload_path) }}" alt="User profile picture">
 									@endif
-								</div>	
+								</div>
 								<h5>{{ Auth::user()->pengajuanMagang->name ?? Auth::user()->fullname }}</h5>
 								<p class="text-gray">Mahasiswa</p>
 							</div>
@@ -48,7 +48,7 @@
 								<div class="form-group">
 									<label for="upload_foto">Upload</label>
 									<input type="file" name="upload_foto" id="upload_foto" class="form-control h-100 mb-0" accept="image/*">
-									
+
 								</div>
 								<button type="submit" class="btn btn-primary btn-block">Update Foto</button>
 							</form>
@@ -91,17 +91,17 @@
 										@switch($item->status)
 											@case(0)
 												<span class="badge badge-warning">PENDING</span>
-												
+
 												@break
 											@case(1)
 												<span class="badge badge-primary">DISETUJUI</span>
-												
+
 												@break
 											@case(2)
 												<span class="badge badge-danger">DITOLAK</span>
-												
+
 												@break
-												
+
 										@endswitch
 									</td>
 								</tr>
@@ -112,7 +112,7 @@
 									<td colspan="6">Data Kosong</td>
 								</tr>
 							@endempty
-							
+
 						</tbody>
 						<tfoot>
 							<tr>
@@ -124,6 +124,22 @@
 					</table>
 				</div>
 			</div>
+
+			{{-- Kalau posisi pending maka pengumuman tidak ditampilkan --}}
+			@if (Auth::user()->pengajuanMagang->status != 0)
+				<div class="row">
+					<div class="col-12">
+						<div class="card">
+							<div class="card-body
+							{{ Auth::user()->pengajuanMagang->status == 1 ? 'bg-success' : 'bg-danger' }}">
+								<div class="mt-2">
+									{!! Auth::user()->pengajuanMagang->pengumuman !!}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			@endif
 		</div>
 	</div>
 @endsection

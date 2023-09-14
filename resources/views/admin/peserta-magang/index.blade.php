@@ -38,8 +38,21 @@
 								<div class="input-group-text">
 									<span class="fa fa-calendar"></span>
 								</div>
-								<button type="submit" class="btn btn-primary ml-2"><i class="fa fa-search"></i></button>
 							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<label for="status">
+							Status:
+						</label>
+						<div class="input-group-append">
+							<select name="status" id="status" class="form-control select2">
+								<option value="" selected></option>
+								<option value="disetujui" {{Request::get('status') == 'disetujui' ? 'selected' : ''}}>Disetujui</option>
+								<option value="ditolak" {{Request::get('status') == 'ditolak' ? 'selected' : ''}}>Ditolak</option>
+								<option value="pending" {{Request::get('status') == 'pending' ? 'selected' : ''}}>Pending</option>
+							</select>
+							<button type="submit" class="btn btn-primary ml-2"><i class="fa fa-search"></i></button>
 						</div>
 					</div>
 				</div>
@@ -107,7 +120,12 @@
 											@break
 									@endswitch
 
-										<a href="{{ route('admin.peserta-magang.show', $value->id) }}" class="btn btn-info btn-sm btn-block text-left"><i class="fa fa-list mr-2"></i> Details</a>
+									{{-- Cek apakah sudah melakukan persetujuana tau penolakan --}}
+									@if ($value->status != 0)
+										<a href="{{ route('admin.peserta-magang.edit', $value->id) }}" class="btn btn-warning btn-sm btn-block text-left"><i class="fa fa-edit mr-2"></i> Edit</a>
+									@endif
+
+									<a href="{{ route('admin.peserta-magang.show', $value->id) }}" class="btn btn-info btn-sm btn-block text-left"><i class="fa fa-list mr-2"></i> Details</a>
 								</td>
 							</tr>
 						@endforeach

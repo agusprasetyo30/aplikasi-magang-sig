@@ -16,6 +16,8 @@ use Validator;
 
 class PesertaMagangController extends Controller
 {
+    private static $PENGUMUMAN_DISETUJUI_DEFAULT = "<div>PENGUMUMAN!!!</div><div>Dengan Hormat,</div><div><br></div><div>Sehubungan dengan pengisian Ajuan Kerja Praktek/Penelitian yang telah Bapak/Ibu/Saudara/i isi, maka dengan ini kami informasikan, ajuan sudah kami terima.</div><div><br></div><div>Kerja Praktek Mahasiwa berdurasi 3 bulan dan 1 kelompok maksimal 3 orang,</div><div>Kerja Praktek SMK berdurasi 3 bulan dan 1 kelompok maksimal 4 orang.</div><div><br></div><div>Proses disetujui atau tidak disetujui Kerja Praktek/Penelitian, menunggu balasan persetujuan Pembimbing.</div><div>&nbsp;</div><div>Demikian yang dapat kami sampaikan, terima kasih.</div><div><br></div><div><br></div><div><br></div><div>Hormat kami,</div><div><br></div><div>Unit of L&amp;D Operational</div><div>PT Semen Indonesia (Persero) Tbk.</div>";
+    private static $PENGUMUMAN_DITOLAK_DEFAULT = "<div>PENGUMUMAN!!!</div><div>Dengan Hormat</div><div><br></div><div>Berikut kami sampaikan mekanisme kerja praktek, sesuai prosedur yang berlaku di Unit Kerja L&amp;D Ops and Certification terlampir.</div><div><br></div><div>Sebagai informasi, untuk Kerja Praktek/ Penelitian di Bulan Oktober 2023 - Maret 2024 telah kami tutup dikarenakan KUOTA FULL, Sehingga kami belum dapat menerima kerja praktek untuk bulan-bulan tersebut.</div><div><br></div><div>Kerja Praktek/Penelitian dibuka kembali untuk Bulan April 2024,&nbsp;</div><div><br></div><div><br></div><div>Demikian yang dapat kami sampaikan, terima kasih.</div><div><br></div><div><br></div><div>Hormat kami,</div><div><br></div><div>Unit of L&amp;D Operational</div><div>PT Semen Indonesia (Persero) Tbk.</div>";
     /**
      * Display a listing of the resource.
      *
@@ -27,12 +29,27 @@ class PesertaMagangController extends Controller
         $jumlah_halaman = 5;
         $number = General::numberPagination($jumlah_halaman);
 
+        $temp_status = ''; // digunakan untuk get data status
+
+        switch ($request->get('status')) {
+            case 'pending':
+                $temp_status = '0';
+                break;
+            case 'disetujui':
+                $temp_status = '1';
+                break;
+            case 'ditolak':
+                $temp_status = '2';
+                break;
+        }
+
         $peserta_magang = PengajuanMagang::query();
 
         // jika pencariannya digunakan bersama
-        if (!is_null($request->search) && !is_null($request->periode)) {
+        if (!is_null($request->search) && !is_null($request->periode) && !is_null($request->status)) {
              // Pencarian nama, jurusan/prodi, dan universitas/instansi
             $peserta_magang = $peserta_magang
+                ->where('status', $temp_status)
                 ->whereMonth('created_at', '=', $getMonthYear[0]) //month
                 ->whereYear('created_at', '=', $getMonthYear[1]) // year
                 ->where('name', 'like', '%' . $request->get('search') . '%')
@@ -59,10 +76,63 @@ class PesertaMagangController extends Controller
                 ->whereYear('created_at', '=', $getMonthYear[1]); //year
         }
 
+        // Filter Status
+        if (!is_null($request->status)) {
+            $peserta_magang = PengajuanMagang::with('jurusan')
+                ->where('status', $temp_status);
+        }
+
         $peserta_magang = $peserta_magang->paginate($jumlah_halaman);
 
         return view('admin.peserta-magang.index', compact('number', 'peserta_magang'));
+    }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function edit($id)
+    {
+        $peserta_magang = PengajuanMagang::where('id', $id)->first();
+
+        return view('admin.peserta-magang.edit', compact('peserta_magang'));
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function update(Request $request, $id)
+    {
+        $peserta_magang = PengajuanMagang::where('id', $id)->first();
+        $temp_pengumuman = '';
+
+        switch ($request->status) {
+            case '1': // Diterima
+                $temp_pengumuman = self::$PENGUMUMAN_DISETUJUI_DEFAULT;
+                break;
+            case '2':
+                $temp_pengumuman = self::$PENGUMUMAN_DITOLAK_DEFAULT;
+                break;
+        }
+
+        if (!is_null($request->pengumuman)) {
+            $temp_pengumuman = $request->pengumuman;
+        }
+
+        $peserta_magang->update([
+            'status'     => $request->status,
+            'pengumuman' => $temp_pengumuman
+        ]);
+
+        return redirect()
+                ->route('admin.peserta-magang.index')
+                ->with('alert_type', 'success')
+                ->with('message', 'Update data mahasiswa sukses');
     }
 
     /**
@@ -130,10 +200,12 @@ class PesertaMagangController extends Controller
 
         try {
             $status_approval = '';
+            $pengumuman_default = '';
 
             switch ($type) {
                 case 'approve':
                     $status_approval = '1';
+                    $pengumuman_default = self::$PENGUMUMAN_DISETUJUI_DEFAULT;
 
                     // Jika approve maka secara otomatis membuat data berkas pengajuan magang yang telasi ke pengajuan magang
                     BerkasPengajuanMagang::create([
@@ -148,11 +220,14 @@ class PesertaMagangController extends Controller
 
                 case 'reject':
                     $status_approval = '2';
+                    $pengumuman_default = self::$PENGUMUMAN_DITOLAK_DEFAULT;
+
                     break;
             }
 
             PengajuanMagang::where('id', $id)->update([
-                'status'  => $status_approval
+                'status'  => $status_approval,
+                'pengumuman' => $pengumuman_default
             ]);
 
             DB::commit();

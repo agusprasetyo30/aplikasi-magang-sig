@@ -58,7 +58,7 @@ class DashboardController extends Controller
         $total_pengajuan_magang = $pengajuan_magang->get()->count();
 
         $pengajuan_magang = $pengajuan_magang->paginate($total_halaman);
-        
+
         return view('admin.dashboard.index', compact('pengajuan_magang', 'number', 'total_mahasiswa', 'total_pengajuan_magang'));
     }
 
@@ -136,5 +136,5 @@ class DashboardController extends Controller
         }
 
         return $total;
-    } 
+    }
 }

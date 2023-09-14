@@ -7,7 +7,7 @@ use Intervention\Image\Facades\Image;
 use Str;
 
 class General {
-	
+
 	/**
        * menampilkan nomer urut dalam tabel walaupun dalam bentuk pagination
       *
@@ -46,7 +46,7 @@ class General {
 		}
 
 		Image::make($file)->resize($width, $height)->save($path . '/' . $images);
-		
+
 		return $location . '/' . $images;
 	}
 
@@ -63,7 +63,7 @@ class General {
 		$images = Str::slug($name) . time() . '.' . $file->getClientOriginalExtension();
 		$path = storage_path('app/public/' . $location); // otomatis masuk ke folder storage
 
-		if (!File::isDirectory($path))	
+		if (!File::isDirectory($path))
 		{
 			File::makeDirectory($path, 0777, true, true);
 		}
@@ -86,7 +86,7 @@ class General {
 
 		$path = storage_path('app/public/' . $location); // otomatis masuk ke folder storage
 
-		if (!File::isDirectory($path))	
+		if (!File::isDirectory($path))
 		{
 			File::makeDirectory($path, 0777, true, true);
 		}

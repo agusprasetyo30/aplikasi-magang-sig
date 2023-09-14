@@ -48,7 +48,7 @@ Route::group([
 
         Route::get('/', 'index')->name('index');
         Route::put('/upload-photo', 'uploadPhoto')->name('upload-photo');
-        
+
         Route::get('/download-berkas-magang', 'downloadBerkasMagang')->name('download-berkas-magang');
         Route::get('/{type}/download','downloadFile')->name('download-file');
     });
@@ -63,7 +63,7 @@ Route::group([
     'prefix'     => 'admin',
     'middleware' => ['auth', 'can:admin'],
     'as'         => 'admin.'], function() {
-    
+
         // Dashboard
         Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard.index');
 
@@ -86,10 +86,6 @@ Route::group([
     'prefix'     => 'select2',
     'middleware' => ['auth'],
     'as'         => 'select2.'], function() {
-    
+
     Route::get('/jurusan', [Select2Controller::class, 'jurusanSelect2'])->name('jurusan');
 });
-
-
-
-

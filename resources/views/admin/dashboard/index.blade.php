@@ -25,7 +25,7 @@
 			<div class="small-box bg-info">
 				<div class="inner">
 					<h3>{{ $total_mahasiswa }}</h3>
-	
+
 					<p>Total Mahasiswa</p>
 				</div>
 				<div class="icon">
@@ -40,7 +40,7 @@
 			<div class="small-box bg-info">
 				<div class="inner">
 					<h3>{{ $total_pengajuan_magang }}</h3>
-	
+
 					<p>Total Pengajuan</p>
 				</div>
 				<div class="icon">
@@ -118,7 +118,7 @@
 											@case(2)
 												<span class="badge badge-danger">DITOLAK</span>
 												@break
-												
+
 										@endswitch
 									</td>
 								</tr>
