@@ -126,19 +126,21 @@
 			</div>
 
 			{{-- Kalau posisi pending maka pengumuman tidak ditampilkan --}}
-			@if (Auth::user()->pengajuanMagang->status != 0)
-				<div class="row">
-					<div class="col-12">
-						<div class="card">
-							<div class="card-body
-							{{ Auth::user()->pengajuanMagang->status == 1 ? 'bg-success' : 'bg-danger' }}">
-								<div class="mt-2">
-									{!! Auth::user()->pengajuanMagang->pengumuman !!}
+			@if (!is_null(Auth::user()->pengajuanMagang))
+				@if (Auth::user()->pengajuanMagang->status != 0)
+					<div class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-body
+								{{ Auth::user()->pengajuanMagang->status == 1 ? 'bg-success' : 'bg-danger' }}">
+									<div class="mt-2">
+										{!! Auth::user()->pengajuanMagang->pengumuman !!}
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				@endif
 			@endif
 		</div>
 	</div>
